@@ -1,4 +1,5 @@
 import cors from "cors";
+import type { CorsOptions } from "cors";
 import express from "express";
 import type { NextFunction, Request, Response } from "express";
 
@@ -22,7 +23,7 @@ const openAIService = createOpenAIService({
   requestTimeoutMs: config.llmRequestTimeoutMs,
 });
 
-app.use(cors({ origin: config.clientOrigin }));
+app.use(cors(createCorsOptions(config.clientOrigin)));
 app.use(express.json());
 
 app.use(
@@ -84,4 +85,26 @@ function isJsonParseError(error: unknown): boolean {
     error.status === 400 &&
     error.type === "entity.parse.failed"
   );
+}
+
+function createCorsOptions(clientOrigin: string): CorsOptions {
+  const allowedOrigins = new Set(
+    [
+      ...clientOrigin.split(",").map((origin) => origin.trim()),
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+      "http://[::1]:5173",
+    ].filter((origin) => origin !== ""),
+  );
+
+  return {
+    origin(origin, callback) {
+      if (origin === undefined || allowedOrigins.has(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(null, false);
+    },
+  };
 }

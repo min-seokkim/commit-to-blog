@@ -30,10 +30,20 @@ export async function requestData<T>(
     headers.set("Content-Type", "application/json");
   }
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...init,
-    headers,
-  });
+  let response: Response;
+
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      ...init,
+      headers,
+    });
+  } catch {
+    throw new ApiRequestError(
+      "서버에 연결할 수 없습니다. Express 서버가 실행 중인지 확인해주세요",
+      "NETWORK_ERROR",
+      0,
+    );
+  }
   const payload = await readJson(response);
 
   if (!response.ok) {
