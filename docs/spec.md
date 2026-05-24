@@ -142,7 +142,7 @@ GitHub 저장소의 커밋을 LLM으로 분석해 기술 블로그 초안을 자
 ## 8. 디자인 컨셉
 
 ### 분위기 — "작가의 원고 노트" (시각만 적용)
-명명·copy·LLM 출력은 표준 dev 관례 유지.
+내부 식별자(변수명·파일명·LLM enum값·git 컨벤션 등)는 영어 dev 관례 유지. 사용자에게 보이는 UI 텍스트(워드마크·페이지 제목·버튼·폼 라벨·status 표시·토스트)는 한국어로 작성 (Phase 3a부터). LLM 본문 출력도 한국어.
 
 ### Visual System (요지, 토큰은 `docs/design.md`에 정리)
 - 색상: cream paper + ink 팔레트 (warm off-white 배경, sepia/midnight blue 잉크, 빨간 잉크 강조)
@@ -160,7 +160,7 @@ GitHub 저장소의 커밋을 LLM으로 분석해 기술 블로그 초안을 자
 4. 최근 커밋 리스트 표시 → 1개 선택
 5. "요약 생성" 클릭 → 서버에 요청 → LLM 호출 → 결과 표시 (수 초 로딩)
 6. 사용자가 title/summary/body 편집
-7. "저장 및 게시" 클릭 → Post 생성 (`status: draft`) → `/saved`로 이동
+7. "저장" 클릭 → Post 생성 (`status: draft`) → `/saved`로 이동
 
 ### Flow B — 저장된 포스트 재편집
 1. `/saved`에서 카드 클릭
@@ -170,7 +170,7 @@ GitHub 저장소의 커밋을 LLM으로 분석해 기술 블로그 초안을 자
 ### Flow C — 발행
 1. `/saved`에서 카드의 "발행" 버튼 클릭
 2. `status: draft → published` 토글
-3. 카드에 발행 상태 표시 (배지 등)
+3. 카드에 발행 상태 표시 ("발행됨" 도장 — 내부 enum은 `published` 유지)
 
 ## 10. 비기능 요구사항
 

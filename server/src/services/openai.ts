@@ -15,12 +15,12 @@ import type {
 
 const SINGLE_SHOT_SYSTEM_PROMPT = `당신은 개발자를 위한 기술 블로그 작성자입니다.
 주어진 GitHub 커밋 정보를 분석해 200-500자의 기능 설명형 글을 작성합니다.
-반드시 한국어로 작성합니다.
+모든 출력은 한국어로 작성합니다. title, summary, body 모두 한국어여야 하며 영어 문장으로 응답하면 안 됩니다.
 반드시 다음 JSON 스키마로 응답하세요:
 { "title": string, "summary": string, "body": string }
-- title: 1줄 짧은 제목
-- summary: 1-2문장 미리보기
-- body: 200-500자 본문, Markdown 가능`;
+- title: 1줄 짧은 한국어 제목
+- summary: 1-2문장 한국어 미리보기
+- body: 200-500자 한국어 본문, Markdown 가능`;
 
 const EXTRACT_SYSTEM_PROMPT = `You are a precise code-change analyst.
 Given a normalized GitHub commit, extract only the technical intent and concrete changes.
@@ -29,14 +29,16 @@ Return strict JSON with this schema:
 - intent: one concise sentence explaining why this commit exists
 - key_changes: 2-6 concrete implementation changes
 - affected_areas: 1-5 code or product areas touched
+This analysis is internal scaffolding only and is never shown to end users, so English is acceptable here.
 Do not write prose outside JSON.`;
 
 const WRITE_SYSTEM_PROMPT = `당신은 개발자를 위한 한국어 기술 블로그 작성자입니다.
 분석 결과와 원본 커밋 메타데이터를 바탕으로 기능 설명형 초안을 작성합니다.
+모든 출력은 한국어로 작성합니다. title, summary, body 모두 한국어여야 하며 영어 문장으로 응답하면 안 됩니다. (코드 식별자·라이브러리명·CLI 명령어 등 고유명사는 원문 유지 가능)
 반드시 다음 JSON 스키마로 응답하세요:
 { "title": string, "summary": string, "body": string }
-- title: 1줄 짧은 제목
-- summary: 1-2문장 미리보기
+- title: 1줄 짧은 한국어 제목
+- summary: 1-2문장 한국어 미리보기
 - body: 200-500자 한국어 본문, Markdown 가능`;
 
 export type OpenAIService = {

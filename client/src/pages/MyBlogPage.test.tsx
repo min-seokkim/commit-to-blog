@@ -23,21 +23,21 @@ describe("MyBlogPage", () => {
       </ToastProvider>,
     );
 
-    const repoInput = await screen.findByLabelText("Repository");
+    const repoInput = await screen.findByLabelText("저장소");
     await waitFor(() => expect(repoInput).toHaveValue(mockRepo.fullName));
 
     await waitFor(() =>
-      expect(screen.getByLabelText("Branch")).toHaveValue(mockBranch.name),
+      expect(screen.getByLabelText("브랜치")).toHaveValue(mockBranch.name),
     );
 
     fireEvent.click(await screen.findByText(mockCommitSummary.message));
-    fireEvent.click(await screen.findByRole("button", { name: "Generate" }));
+    fireEvent.click(await screen.findByRole("button", { name: "생성하기" }));
 
     await waitFor(() =>
-      expect(screen.getByLabelText("Title")).toHaveValue(mockDraft.title),
+      expect(screen.getByLabelText("제목")).toHaveValue(mockDraft.title),
     );
 
-    fireEvent.click(screen.getByRole("button", { name: "Save" }));
+    fireEvent.click(screen.getByRole("button", { name: "저장" }));
 
     await waitFor(() => expect(savedPostRequests).toHaveLength(1));
 

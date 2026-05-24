@@ -17,8 +17,8 @@ function PostEditor({
   value,
   onChange,
   actions,
-  eyebrow = "AI draft",
-  title = "Draft editor",
+  eyebrow = "AI 초안",
+  title = "초안 편집기",
 }: PostEditorProps) {
   return (
     <section className={styles["post-editor"]}>
@@ -28,7 +28,7 @@ function PostEditor({
       </div>
 
       <label className={styles["post-editor__field"]}>
-        <span className={styles["post-editor__label"]}>Title</span>
+        <span className={styles["post-editor__label"]}>제목</span>
         <textarea
           className={styles["post-editor__textarea"]}
           rows={2}
@@ -38,7 +38,7 @@ function PostEditor({
       </label>
 
       <label className={styles["post-editor__field"]}>
-        <span className={styles["post-editor__label"]}>Summary</span>
+        <span className={styles["post-editor__label"]}>요약</span>
         <textarea
           className={styles["post-editor__textarea"]}
           rows={4}
@@ -48,7 +48,7 @@ function PostEditor({
       </label>
 
       <label className={styles["post-editor__field"]}>
-        <span className={styles["post-editor__label"]}>Body</span>
+        <span className={styles["post-editor__label"]}>본문</span>
         <textarea
           className={`${styles["post-editor__textarea"]} ${styles["post-editor__textarea--body"]}`}
           rows={12}
@@ -58,7 +58,7 @@ function PostEditor({
       </label>
 
       <div className={styles["post-editor__preview"]}>
-        <p className={styles["post-editor__label"]}>Markdown preview</p>
+        <p className={styles["post-editor__label"]}>마크다운 미리보기</p>
         <div className={styles["post-editor__preview-body"]}>
           <ReactMarkdown>{value.body}</ReactMarkdown>
         </div>

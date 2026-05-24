@@ -9,7 +9,7 @@ function Footer() {
         <span className={styles["footer__gear"]} aria-hidden="true">
           ⚙
         </span>
-        Smart Blog
+        스마트 블로그
       </p>
     </footer>
   );

@@ -102,7 +102,9 @@
 ## 9. 디자인
 
 - 컨셉: **작가의 원고 노트**. 시각·분위기에만 적용.
-- 명명·UI 텍스트·LLM 출력은 표준 dev 관례 유지 (Save / Publish / Draft / main / develop).
+- 내부 명명(변수·파일·LLM enum값·git 컨벤션)은 영어 dev 관례 유지 (`draft` / `published` / `main` / `develop` / `feat:` 등).
+- 사용자 표시 UI 텍스트는 한국어 (워드마크·페이지 제목·버튼·폼 라벨·status 표시·토스트). 내부 enum은 표시 지점에서 한국어로 매핑.
+- LLM 본문 출력도 한국어. 시스템 프롬프트에 명시.
 - 디자인 토큰 정의는 `docs/design.md` 참조.
 
 ## 10. 개발 워크플로우

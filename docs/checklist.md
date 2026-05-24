@@ -88,7 +88,7 @@
 - [ ] `<PageDivider>` — double border
 - [ ] `<Fleuron>` — `✦ ❦ ✦` 푸터/섹션 ornament
 - [ ] `<Footer>` — small-caps 푸터
-- [ ] `<WaxSealButton>` — Publish, Save, New blog 공용
+- [ ] `<WaxSealButton>` — 발행, 저장, 새 글 쓰기 공용
 - [ ] `<BrassPin>` — 압정 SVG/CSS 컴포넌트
 - [ ] `<PinnedSurface>` — 회전 + 압정 + 그림자 wrapper
 
@@ -108,11 +108,11 @@
 - [ ] 브랜치 select (선택된 저장소 기준)
 - [ ] 최근 커밋 리스트 — `PinnedMemo` 컴포넌트로 표시
 - [ ] 커밋 클릭 시 우측 상세 패널 갱신
-- [ ] "Generate" 버튼 → AI summary 호출
+- [ ] "생성하기" 버튼 → AI summary 호출
 - [ ] AI summary 결과 표시 — ruled paper 결의 textarea
 - [ ] `{ title, summary, body }` 각 필드 사용자 편집 가능
 - [ ] body는 Markdown 입력 + 프리뷰 (라이브러리 선택은 spec Open Question 해소 후)
-- [ ] "Cancel" / "Save and publish" 액션
+- [ ] "취소" / "저장" 액션
 - [ ] 저장 성공 시 `/saved`로 navigate
 
 엣지케이스: 저장소 없음, 커밋 0개, summary 생성 실패, 저장 실패.
@@ -128,8 +128,8 @@
   - 날짜 (mono small-caps)
   - 압정 위치 카드마다 변주
   - rotate angle 카드마다 변주 (seed 고정)
-- [ ] "Edit" → `/post/:id/edit`로 이동
-- [ ] "Publish" 토글 → status 변경 + 시각 표시 (status stamp cursive)
+- [ ] "편집" → `/post/:id/edit`로 이동
+- [ ] "발행" 토글 → status 변경 + 시각 표시 (status stamp cursive, "발행됨")
 - [ ] 빈 상태 메시지 — cursive 폰트로 "아직 저장된 포스트가 없습니다…"
 - [ ] "New blog" 버튼 → `/my-blog`로 이동
 
@@ -150,7 +150,7 @@
 ### 2.12 상태 UI
 
 - [ ] 전역 로딩 인디케이터 (LLM 호출 중)
-- [ ] 토스트 알림 (Saved, Published, Error) — cursive 폰트
+- [ ] 토스트 알림 ("저장했습니다", "발행했습니다", 에러 메시지 한국어) — cursive 폰트
 - [ ] 에러 상태 UI (페이지 단위, 컴포넌트 단위)
 - [ ] 빈 상태 UI (저장소 없음, 커밋 없음, 포스트 없음)
 

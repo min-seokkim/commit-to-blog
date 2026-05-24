@@ -11,7 +11,9 @@
 
 햇살이 들어오는 작업실 책상 위, 만년필과 타자기와 황동 도구가 놓인 풍경. 종이는 변색됐고, 잉크는 sepia와 만년필 청잉크, 강조는 wax seal의 wine red. 산업혁명기 황동 부속이 살짝 끼어 있어 기계적 정밀함과 손의 흔적이 공존.
 
-**적용 범위는 시각·분위기로만 한정.** 명명, UI 텍스트, LLM 출력, 인터랙션 의미는 표준 dev 관례 그대로 (`Save`, `Publish`, `Draft`, `main`, `develop`, AI summary).
+**적용 범위는 시각·분위기로만 한정.** 내부 식별자·변수명·LLM enum값·git/CLI 컨벤션은 영어 dev 관례 유지 (`draft`, `published`, `main`, `develop`, `feat:`, AI summary 등).
+
+Phase 3a부터 **사용자에게 표시되는 UI 텍스트는 한국어**로 작성한다 — 워드마크(스마트 블로그), 페이지 제목(저장된 글 / 새 글 쓰기 / 글 편집 / 설정), 버튼(저장 / 발행 / 편집 / 취소 / 삭제 / 생성하기 / 새 글 쓰기), 폼 라벨(제목 / 요약 / 본문 / 저장소 / 브랜치 / 최근 커밋), status 표시(초안 / 발행됨), 토스트 메시지 전부. 내부 enum값(`draft` / `published`)은 영문 그대로 두되 PostCard 등 표시 지점에서 한국어로 매핑한다.
 
 ---
 
@@ -318,7 +320,7 @@ repeating-linear-gradient로 노트지 가로줄.
 
 좌측 작은 commit memo는 같은 패턴의 축소판: 13px pin, --shadow-memo, --ruled-memo 깔린 배경.
 
-### 5.2 Wax Seal Button (Publish, Save and publish, New blog)
+### 5.2 Wax Seal Button (발행 / 저장 / 새 글 쓰기)
 
 ```
 - background: --fill-wax
@@ -364,7 +366,7 @@ repeating-linear-gradient로 노트지 가로줄.
 
 ### 5.6 Status Stamp (cursive)
 
-`draft` / `published` 상태를 손글씨 도장 결로.
+내부 enum `draft` / `published`를 한국어 표시 `초안` / `발행됨`으로 매핑해 손글씨 도장 결로 보여준다.
 
 ```
 - font: var(--text-stamp), color: var(--color-accent-wax)

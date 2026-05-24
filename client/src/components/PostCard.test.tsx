@@ -38,9 +38,9 @@ describe("PostCard", () => {
 
     expect(screen.getByText("main")).toBeInTheDocument();
     expect(screen.getByText("토스트 시스템 추가")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Edit" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "편집" })).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Publish" }));
+    fireEvent.click(screen.getByRole("button", { name: "발행" }));
 
     expect(onPublish).toHaveBeenCalledWith(post);
   });

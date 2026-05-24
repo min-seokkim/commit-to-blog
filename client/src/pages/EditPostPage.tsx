@@ -52,8 +52,8 @@ function EditPostPage() {
   return (
     <section className={styles["edit-post-page"]}>
       <div className={styles["edit-post-page__header"]}>
-        <p className={styles["edit-post-page__subtitle"]}>Saved draft</p>
-        <h1 className={styles["edit-post-page__title"]}>Edit post</h1>
+        <p className={styles["edit-post-page__subtitle"]}>저장된 초안</p>
+        <h1 className={styles["edit-post-page__title"]}>글 편집</h1>
       </div>
 
       {post.error !== null ? (
@@ -63,22 +63,22 @@ function EditPostPage() {
       ) : null}
 
       {post.loading ? (
-        <p className={styles["edit-post-page__muted"]}>Loading post...</p>
+        <p className={styles["edit-post-page__muted"]}>글을 불러오는 중...</p>
       ) : null}
 
       <PinnedSurface variant="letter" rotate="b" pin="right">
         <PostEditor
           value={draft}
           onChange={updateDraft}
-          eyebrow={post.data?.repoName ?? "Post editor"}
-          title={post.data?.title ?? "Edit draft"}
+          eyebrow={post.data?.repoName ?? "글 편집기"}
+          title={post.data?.title ?? "초안 편집"}
           actions={
             <>
               <SecondaryButton onClick={() => navigate("/saved")}>
-                Cancel
+                취소
               </SecondaryButton>
               <WaxSealButton disabled={updatePost.loading} onClick={save}>
-                Save
+                저장
               </WaxSealButton>
             </>
           }

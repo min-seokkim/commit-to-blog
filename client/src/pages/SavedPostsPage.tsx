@@ -24,11 +24,11 @@ function SavedPostsPage() {
     <section className={styles["saved-posts-page"]}>
       <div className={styles["saved-posts-page__header"]}>
         <div>
-          <p className={styles["saved-posts-page__subtitle"]}>Draft archive</p>
-          <h1 className={styles["saved-posts-page__title"]}>Saved posts</h1>
+          <p className={styles["saved-posts-page__subtitle"]}>원고 보관함</p>
+          <h1 className={styles["saved-posts-page__title"]}>저장된 글</h1>
         </div>
         <WaxSealButton onClick={() => navigate("/my-blog")}>
-          New blog
+          새 글 쓰기
         </WaxSealButton>
       </div>
 
@@ -39,7 +39,7 @@ function SavedPostsPage() {
       ) : null}
 
       {posts.loading ? (
-        <p className={styles["saved-posts-page__empty"]}>Loading saved posts...</p>
+        <p className={styles["saved-posts-page__empty"]}>저장된 글을 불러오는 중...</p>
       ) : null}
 
       {posts.data !== null && posts.data.length === 0 ? (

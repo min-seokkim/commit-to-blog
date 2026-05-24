@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-import type { Post } from "../types/commit";
+import type { Post, PostStatus } from "../types/commit";
 
 import PinnedSurface, { type PinnedSurfaceRotate } from "./PinnedSurface";
 import SecondaryButton from "./SecondaryButton";
@@ -15,6 +15,11 @@ type PostCardProps = {
 };
 
 const ROTATES: PinnedSurfaceRotate[] = ["a", "b", "c", "d"];
+
+const STATUS_DISPLAY: Record<PostStatus, string> = {
+  draft: "초안",
+  published: "발행됨",
+};
 
 function PostCard({ post, index, onPublish, publishing }: PostCardProps) {
   const navigate = useNavigate();
@@ -41,19 +46,21 @@ function PostCard({ post, index, onPublish, publishing }: PostCardProps) {
         <p className={styles["post-card__summary"]}>{post.summary}</p>
 
         {post.status === "published" ? (
-          <span className={styles["post-card__stamp"]}>published</span>
+          <span className={styles["post-card__stamp"]}>
+            {STATUS_DISPLAY.published}
+          </span>
         ) : null}
 
         <div className={styles["post-card__actions"]}>
           <SecondaryButton onClick={() => navigate(`/post/${post.id}/edit`)}>
-            Edit
+            편집
           </SecondaryButton>
           <WaxSealButton
             compact
             disabled={publishing || post.status === "published"}
             onClick={() => onPublish(post)}
           >
-            Publish
+            발행
           </WaxSealButton>
         </div>
       </div>
@@ -74,10 +81,10 @@ function getBranchVariant(branch: string): "main" | "develop" | "feature" {
 }
 
 function formatDate(value: string): string {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "2-digit",
+  return new Intl.DateTimeFormat("ko", {
     year: "numeric",
+    month: "long",
+    day: "numeric",
   }).format(new Date(value));
 }
 

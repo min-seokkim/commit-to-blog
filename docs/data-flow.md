@@ -35,13 +35,13 @@
 4. 사용자가 저장소 선택 → `useBranches(repo)` → `GET /api/branches?repo=X` → `GET /repos/{owner}/{repo}/branches`.
 5. 사용자가 브랜치 선택 → `useCommits(repo, branch)` → `GET /api/commits?repo=X&branch=Y` → `GET /repos/{owner}/{repo}/commits?sha=Y`.
 6. 사용자가 커밋 선택 → `useCommitDetail(repo, sha)` → `GET /api/commits/:sha?repo=X` → `GET /repos/{owner}/{repo}/commits/{sha}` (메시지 + stats + files + patch 포함).
-7. 사용자가 "Generate" → `useGenerateSummary().generate(commit)` → `POST /api/summary` with normalized `CommitNormalized` payload.
+7. 사용자가 "생성하기" → `useGenerateSummary().generate(commit)` → `POST /api/summary` with normalized `CommitNormalized` payload.
 8. 서버가 커밋 데이터를 LLM 프롬프트로 구조화 (다음 섹션 3 참조).
 9. 서버가 OpenAI SDK로 `chat.completions.create()` 호출, `response_format: { type: "json_object" }` 강제.
 10. LLM 응답을 받아 스키마 검증(`title`/`summary`/`body` 존재 + 타입). 실패 시 에러 반환.
 11. 검증 통과한 `{ title, summary, body }`를 클라이언트에 반환.
 12. 사용자가 편집기에서 수정.
-13. "Save and publish" → `useSavePost().save({...})` → `POST /api/posts` with 편집된 `{ title, summary, body }` + 출처 메타데이터(`repoName`, `branch`, `commitSha`, `commitAuthor`, `commitDate`).
+13. "저장" → `useSavePost().save({...})` → `POST /api/posts` with 편집된 `{ title, summary, body }` + 출처 메타데이터(`repoName`, `branch`, `commitSha`, `commitAuthor`, `commitDate`).
 14. 서버가 `id` + `status: "draft"` + `createdAt` + `updatedAt`를 추가해 lowdb에 append.
 15. 저장된 Post 반환, 클라이언트가 `/saved`로 navigate.
 
@@ -53,14 +53,14 @@
 
 ### Flow C — 저장된 포스트 재편집
 
-1. 사용자가 카드의 "Edit" 클릭 → `/post/:id/edit`로 이동.
+1. 사용자가 카드의 "편집" 클릭 → `/post/:id/edit`로 이동.
 2. `usePost(id)` → `GET /api/posts/:id` → 단건 반환.
 3. 사용자가 편집기에서 수정.
 4. 저장 → `useUpdatePost().update(id, patch)` → `PATCH /api/posts/:id` → lowdb 업데이트 (`updatedAt` 갱신).
 
 ### Flow D — 발행 상태 토글
 
-1. 사용자가 카드의 "Publish" 클릭.
+1. 사용자가 카드의 "발행" 클릭.
 2. `useUpdatePost().update(id, { status: "published" })` → `PATCH /api/posts/:id` → status만 변경.
 3. 카드에 published 표시 (status stamp cursive).
 

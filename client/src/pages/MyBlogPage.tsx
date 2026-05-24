@@ -161,7 +161,7 @@ function MyBlogPage() {
       <aside className={styles["my-blog-page__aside"]}>
         <div className={styles["my-blog-page__field"]}>
           <label className={styles["my-blog-page__label"]} htmlFor="repo-input">
-            Repository
+            저장소
           </label>
           <input
             id="repo-input"
@@ -185,7 +185,7 @@ function MyBlogPage() {
             className={styles["my-blog-page__label"]}
             htmlFor="branch-select"
           >
-            Branch
+            브랜치
           </label>
           <select
             id="branch-select"
@@ -206,9 +206,11 @@ function MyBlogPage() {
         </div>
 
         <div className={styles["my-blog-page__commits"]}>
-          <p className={styles["my-blog-page__label"]}>Recent commits</p>
+          <p className={styles["my-blog-page__label"]}>최근 커밋</p>
           {commits.loading ? (
-            <p className={styles["my-blog-page__muted"]}>Loading commits...</p>
+            <p className={styles["my-blog-page__muted"]}>
+              커밋을 불러오는 중...
+            </p>
           ) : null}
           {commits.data?.map((commit, index) => (
             <PinnedSurface
@@ -242,7 +244,7 @@ function MyBlogPage() {
                 disabled={summary.loading && pendingGenerateSha === commit.sha}
                 onClick={() => generateForCommit(commit)}
               >
-                Generate
+                생성하기
               </WaxSealButton>
             </PinnedSurface>
           ))}
@@ -258,7 +260,7 @@ function MyBlogPage() {
 
         <PinnedSurface variant="large" rotate="c" pin="right">
           <div className={styles["my-blog-page__commit-detail"]}>
-            <p className={styles["my-blog-page__label"]}>Selected commit</p>
+            <p className={styles["my-blog-page__label"]}>선택한 커밋</p>
             {selectedCommitDetail.data !== null ? (
               <>
                 <span className={styles["my-blog-page__sha-badge"]}>
@@ -273,13 +275,13 @@ function MyBlogPage() {
                 </p>
                 <p className={styles["my-blog-page__stats"]}>
                   +{selectedCommitDetail.data.stats.additions} / -
-                  {selectedCommitDetail.data.stats.deletions} /{" "}
-                  {selectedCommitDetail.data.stats.total} total
+                  {selectedCommitDetail.data.stats.deletions} / 총{" "}
+                  {selectedCommitDetail.data.stats.total}
                 </p>
               </>
             ) : (
               <p className={styles["my-blog-page__muted"]}>
-                Select a commit to inspect it.
+                검토할 커밋을 선택하세요.
               </p>
             )}
           </div>
@@ -292,7 +294,7 @@ function MyBlogPage() {
             actions={
               <>
                 <SecondaryButton onClick={() => navigate("/saved")}>
-                  Cancel
+                  취소
                 </SecondaryButton>
                 <WaxSealButton
                   disabled={
@@ -303,7 +305,7 @@ function MyBlogPage() {
                   }
                   onClick={saveDraft}
                 >
-                  Save
+                  저장
                 </WaxSealButton>
               </>
             }
@@ -319,10 +321,10 @@ function firstLine(value: string): string {
 }
 
 function formatDate(value: string): string {
-  return new Intl.DateTimeFormat("en", {
-    month: "short",
-    day: "2-digit",
+  return new Intl.DateTimeFormat("ko", {
     year: "numeric",
+    month: "long",
+    day: "numeric",
   }).format(new Date(value));
 }
 
