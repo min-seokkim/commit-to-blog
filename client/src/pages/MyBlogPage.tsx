@@ -143,6 +143,7 @@ function MyBlogPage() {
       commitSha: selectedCommitDetail.data.sha,
       commitAuthor: selectedCommitDetail.data.author,
       commitDate: selectedCommitDetail.data.date,
+      commitFiles: selectedCommitDetail.data.files,
     });
 
     if (savedPost !== null) {

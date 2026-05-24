@@ -6,6 +6,7 @@ import type { Low } from "lowdb";
 import { ApiError, isRecord } from "../errors.js";
 import type {
   ApiSuccess,
+  CommitFile,
   DBSchema,
   Post,
   PostStatus,
@@ -126,6 +127,7 @@ function parseCreatePostPayload(
   const commitSha = readRequiredString(value, "commitSha");
   const commitAuthor = readRequiredString(value, "commitAuthor");
   const commitDate = readRequiredString(value, "commitDate");
+  const commitFiles = parseCommitFiles(value.commitFiles);
 
   return {
     title,
@@ -136,7 +138,38 @@ function parseCreatePostPayload(
     commitSha,
     commitAuthor,
     commitDate,
+    ...(commitFiles !== undefined ? { commitFiles } : {}),
   };
+}
+
+function parseCommitFiles(value: unknown): CommitFile[] | undefined {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (!Array.isArray(value)) {
+    throw new ApiError(
+      400,
+      "INVALID_POST_PAYLOAD",
+      "commitFiles는 배열이어야 합니다",
+    );
+  }
+
+  return value.map((entry, index) => {
+    if (
+      !isRecord(entry) ||
+      typeof entry.filename !== "string" ||
+      typeof entry.patch !== "string"
+    ) {
+      throw new ApiError(
+        400,
+        "INVALID_POST_PAYLOAD",
+        `commitFiles[${index}] 형식이 올바르지 않습니다`,
+      );
+    }
+
+    return { filename: entry.filename, patch: entry.patch };
+  });
 }
 
 function parseUpdatePostPayload(

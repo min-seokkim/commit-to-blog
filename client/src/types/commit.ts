@@ -57,6 +57,7 @@ export type Post = LLMDraft & {
   commitSha: string;
   commitAuthor: string;
   commitDate: string;
+  commitFiles?: CommitFile[];
   status: PostStatus;
   createdAt: string;
   updatedAt: string;
@@ -68,6 +69,7 @@ export type CreatePostInput = LLMDraft & {
   commitSha: string;
   commitAuthor: string;
   commitDate: string;
+  commitFiles?: CommitFile[];
 };
 
 export type UpdatePostInput = Partial<

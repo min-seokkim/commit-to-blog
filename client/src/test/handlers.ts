@@ -105,6 +105,7 @@ export const handlers = [
     const input = (await request.json()) as CreatePostInput;
     const post: Post = {
       ...input,
+      commitFiles: input.commitFiles,
       id: "post-1",
       status: "draft",
       createdAt: "2026-05-24T00:00:00.000Z",
