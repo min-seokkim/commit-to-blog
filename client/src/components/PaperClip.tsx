@@ -16,7 +16,7 @@ function PaperClip({ size = "medium" }: PaperClipProps) {
         <path
           d="M5 5 L5 38 A5.5 5.5 0 0 0 16 38 L16 13 A4 4 0 0 0 8 13 L8 30 A2.5 2.5 0 0 0 13 30 L13 19"
           fill="none"
-          stroke="var(--brass-main)"
+          stroke="currentColor"
           strokeWidth="3.2"
           strokeLinecap="round"
         />
