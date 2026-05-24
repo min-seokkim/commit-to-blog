@@ -59,7 +59,9 @@ PORT=3000
 CLIENT_ORIGIN=http://localhost:5173
 GITHUB_TOKEN=your_github_pat
 OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=
+LLM_MODEL=gpt-4o-mini
+DIFF_SIZE_CAP_BYTES=8192
+LLM_REQUEST_TIMEOUT_MS=30000
 ```
 
 클라이언트에서 다른 API 주소를 써야 한다면 `client/.env.local`에 설정합니다.
