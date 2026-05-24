@@ -80,6 +80,9 @@
   --border-divider-double: 1px double rgba(74, 53, 32, 0.45);
   --border-double-ink-thin: 1px double rgba(74, 53, 32, 0.3);
   --border-active-nav: underline double 0.5px var(--wine-100);
+  --border-input: 0.5px solid var(--ink-50);
+  --border-wax: 0.5px solid var(--wine-300);
+  --border-brass-badge: 0.5px solid var(--brass-200);
 
   --shadow-card: 4px 7px 14px rgba(74, 53, 32, 0.22),
     2px 3px 5px rgba(74, 53, 32, 0.12);
@@ -127,6 +130,10 @@
   --size-sidebar-width: 240px;
   --size-content-max: 1180px;
   --size-card-min: 320px;
+  --size-editor-min-block: 280px;
+  --size-preview-min-block: 180px;
+  --size-commit-list-max-block: 520px;
+  --size-input-min-block: 38px;
   --size-gear-header: 18px;
   --size-gear-footer: 10px;
   --size-card-pin-offset: -8px;

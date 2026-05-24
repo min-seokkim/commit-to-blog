@@ -1,0 +1,39 @@
+.edit-post-page {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.edit-post-page__header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.edit-post-page__subtitle {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--text-label-size);
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  line-height: var(--text-label-line);
+  text-transform: uppercase;
+}
+
+.edit-post-page__title {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-serif);
+  font-size: var(--text-display-size);
+  font-style: italic;
+  font-weight: 500;
+  line-height: var(--text-display-line);
+}
+
+.edit-post-page__error,
+.edit-post-page__muted {
+  margin: 0;
+  color: var(--color-accent-wax);
+  font-family: var(--font-cursive);
+  font-size: var(--text-hand-label-size);
+  line-height: var(--text-hand-label-line);
+}
