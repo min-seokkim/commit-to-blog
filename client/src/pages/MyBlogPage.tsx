@@ -160,24 +160,25 @@ function MyBlogPage() {
     <div className={styles["my-blog-page"]}>
       <aside className={styles["my-blog-page__aside"]}>
         <div className={styles["my-blog-page__field"]}>
-          <label className={styles["my-blog-page__label"]} htmlFor="repo-input">
+          <label
+            className={styles["my-blog-page__label"]}
+            htmlFor="repo-select"
+          >
             저장소
           </label>
-          <input
-            id="repo-input"
+          <select
+            id="repo-select"
             className={styles["my-blog-page__input"]}
-            list="repo-options"
             value={repoInput}
+            disabled={repos.loading || repos.data === null}
             onChange={(event) => setRepoInput(event.currentTarget.value)}
-            placeholder="owner/repo"
-          />
-          <datalist id="repo-options">
+          >
             {repos.data?.map((repo) => (
               <option key={repo.fullName} value={repo.fullName}>
-                {repo.description ?? repo.name}
+                {repo.fullName}
               </option>
             ))}
-          </datalist>
+          </select>
         </div>
 
         <div className={styles["my-blog-page__field"]}>
