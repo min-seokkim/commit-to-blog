@@ -77,6 +77,25 @@ export function createPostsRouter(db: Low<DBSchema>): Router {
     response.json(payload);
   });
 
+  router.delete("/posts/:id", async (request, response) => {
+    await db.read();
+    const postIndex = db.data.posts.findIndex(
+      (post) => post.id === request.params.id,
+    );
+
+    if (postIndex < 0) {
+      throw new ApiError(404, "NOT_FOUND", "저장된 포스트를 찾을 수 없습니다");
+    }
+
+    db.data.posts.splice(postIndex, 1);
+    await db.write();
+
+    const payload: ApiSuccess<{ id: string }> = {
+      data: { id: request.params.id },
+    };
+    response.json(payload);
+  });
+
   return router;
 }
 

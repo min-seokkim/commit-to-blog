@@ -172,6 +172,11 @@ GitHub 저장소의 커밋을 LLM으로 분석해 기술 블로그 초안을 자
 2. `status: draft → published` 토글
 3. 카드에 발행 상태 표시 ("발행됨" 도장 — 내부 enum은 `published` 유지)
 
+### Flow D — 삭제
+1. `/saved`에서 카드의 "삭제" 버튼 클릭
+2. 네이티브 `window.confirm` 확인 다이얼로그
+3. 확인 시 `DELETE /api/posts/:id` → 토스트 "삭제됨" + 목록 즉시 갱신
+
 ## 10. 비기능 요구사항
 
 ### 보안

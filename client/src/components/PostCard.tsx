@@ -11,7 +11,9 @@ type PostCardProps = {
   post: Post;
   index: number;
   onPublish: (post: Post) => void;
+  onDelete: (post: Post) => void;
   publishing: boolean;
+  deleting: boolean;
 };
 
 const ROTATES: PinnedSurfaceRotate[] = ["a", "b", "c", "d"];
@@ -21,7 +23,14 @@ const STATUS_DISPLAY: Record<PostStatus, string> = {
   published: "발행됨",
 };
 
-function PostCard({ post, index, onPublish, publishing }: PostCardProps) {
+function PostCard({
+  post,
+  index,
+  onPublish,
+  onDelete,
+  publishing,
+  deleting,
+}: PostCardProps) {
   const navigate = useNavigate();
   const branchVariant = getBranchVariant(post.branch);
   const rotate = ROTATES[index % ROTATES.length];
@@ -54,6 +63,12 @@ function PostCard({ post, index, onPublish, publishing }: PostCardProps) {
         <div className={styles["post-card__actions"]}>
           <SecondaryButton onClick={() => navigate(`/post/${post.id}/edit`)}>
             편집
+          </SecondaryButton>
+          <SecondaryButton
+            disabled={deleting}
+            onClick={() => onDelete(post)}
+          >
+            삭제
           </SecondaryButton>
           <WaxSealButton
             compact

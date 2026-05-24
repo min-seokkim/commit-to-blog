@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-import { getPost, getPosts, savePost, updatePost } from "../api/smartBlog";
+import {
+  deletePost,
+  getPost,
+  getPosts,
+  savePost,
+  updatePost,
+} from "../api/smartBlog";
 import { useToast } from "../components/Toast";
 import type { CreatePostInput, Post, UpdatePostInput } from "../types/commit";
 
@@ -83,4 +89,39 @@ export function useUpdatePost(): UpdatePostState {
   }
 
   return { update, loading, error };
+}
+
+export type DeletePostState = {
+  remove: (id: string) => Promise<boolean>;
+  loading: boolean;
+  error: string | null;
+};
+
+export function useDeletePost(): DeletePostState {
+  const { showToast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function remove(id: string): Promise<boolean> {
+    setLoading(true);
+    setError(null);
+
+    try {
+      await deletePost(id);
+      showToast("삭제됨");
+      return true;
+    } catch (errorValue) {
+      const message =
+        errorValue instanceof Error
+          ? errorValue.message
+          : "삭제에 실패했습니다";
+      setError(message);
+      showToast(message, "error");
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { remove, loading, error };
 }

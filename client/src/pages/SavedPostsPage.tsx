@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 
 import PostCard from "../components/PostCard";
 import WaxSealButton from "../components/WaxSealButton";
-import { usePosts, useUpdatePost } from "../hooks/usePosts";
+import { useDeletePost, usePosts, useUpdatePost } from "../hooks/usePosts";
 import type { Post } from "../types/commit";
 
 import styles from "./SavedPostsPage.module.css";
@@ -11,11 +11,24 @@ function SavedPostsPage() {
   const navigate = useNavigate();
   const posts = usePosts();
   const updatePost = useUpdatePost();
+  const deletePostMutation = useDeletePost();
 
   async function publish(post: Post) {
     const updated = await updatePost.update(post.id, { status: "published" });
 
     if (updated !== null) {
+      posts.refetch();
+    }
+  }
+
+  async function remove(post: Post) {
+    if (!window.confirm("이 글을 삭제할까요?")) {
+      return;
+    }
+
+    const removed = await deletePostMutation.remove(post.id);
+
+    if (removed) {
       posts.refetch();
     }
   }
@@ -55,7 +68,9 @@ function SavedPostsPage() {
             post={post}
             index={index}
             publishing={updatePost.loading}
+            deleting={deletePostMutation.loading}
             onPublish={publish}
+            onDelete={remove}
           />
         ))}
       </div>

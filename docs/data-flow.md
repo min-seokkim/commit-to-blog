@@ -64,9 +64,12 @@
 2. `useUpdatePost().update(id, { status: "published" })` → `PATCH /api/posts/:id` → status만 변경.
 3. 카드에 published 표시 (status stamp cursive).
 
-### Flow E — 삭제 (선택, Stretch)
+### Flow E — 삭제
 
-1. `DELETE /api/posts/:id` → lowdb에서 제거.
+1. 사용자가 `/saved` 카드의 "삭제" 클릭.
+2. 네이티브 `window.confirm("이 글을 삭제할까요?")` 확인.
+3. 확인 → `useDeletePost().remove(id)` → `DELETE /api/posts/:id` → lowdb에서 제거.
+4. 성공 시 토스트 "삭제됨" + `usePosts().refetch()`로 목록 즉시 갱신. 실패 시 에러 토스트.
 
 ---
 
@@ -216,7 +219,7 @@ type DBSchema = {
 | GET | `/api/posts/:id` | 단건 조회 | — |
 | POST | `/api/posts` | 신규 저장 | — |
 | PATCH | `/api/posts/:id` | 편집 또는 status 변경 | — |
-| DELETE | `/api/posts/:id` | 삭제 (Stretch) | — |
+| DELETE | `/api/posts/:id` | 삭제 | — |
 
 응답 형식 통일: 성공 시 `{ data: T }`, 실패 시 `{ error: { code: string, message: string } }`.
 

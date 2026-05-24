@@ -131,6 +131,21 @@ export const handlers = [
     return HttpResponse.json({ data: post });
   }),
 
+  http.delete("http://localhost:3000/api/posts/:id", ({ params }) => {
+    const id = typeof params.id === "string" ? params.id : "";
+
+    if (!posts.some((candidate) => candidate.id === id)) {
+      return HttpResponse.json(
+        { error: { code: "NOT_FOUND", message: "not found" } },
+        { status: 404 },
+      );
+    }
+
+    posts = posts.filter((candidate) => candidate.id !== id);
+
+    return HttpResponse.json({ data: { id } });
+  }),
+
   http.get("http://localhost:3000/api/settings", () =>
     HttpResponse.json({
       data: {

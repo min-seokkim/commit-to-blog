@@ -24,6 +24,7 @@ const post: Post = {
 describe("PostCard", () => {
   it("renders post metadata and actions", () => {
     const onPublish = vi.fn();
+    const onDelete = vi.fn();
 
     render(
       <MemoryRouter>
@@ -31,7 +32,9 @@ describe("PostCard", () => {
           post={post}
           index={0}
           onPublish={onPublish}
+          onDelete={onDelete}
           publishing={false}
+          deleting={false}
         />
       </MemoryRouter>,
     );
@@ -43,5 +46,9 @@ describe("PostCard", () => {
     fireEvent.click(screen.getByRole("button", { name: "발행" }));
 
     expect(onPublish).toHaveBeenCalledWith(post);
+
+    fireEvent.click(screen.getByRole("button", { name: "삭제" }));
+
+    expect(onDelete).toHaveBeenCalledWith(post);
   });
 });

@@ -70,7 +70,7 @@
 - [ ] `GET /api/posts/:id` — 단건 조회
 - [ ] `POST /api/posts` — 신규 저장 (status: "draft")
 - [ ] `PATCH /api/posts/:id` — 편집 또는 status 변경
-- [ ] `DELETE /api/posts/:id` — 삭제
+- [x] `DELETE /api/posts/:id` — 삭제 (Phase 3a부터 main scope)
 
 엣지케이스: 없는 id 404, 잘못된 payload 400.
 
@@ -129,6 +129,7 @@
   - 압정 위치 카드마다 변주
   - rotate angle 카드마다 변주 (seed 고정)
 - [ ] "편집" → `/post/:id/edit`로 이동
+- [ ] "삭제" → window.confirm 후 DELETE 호출 + 토스트 "삭제됨" + 목록 즉시 갱신
 - [ ] "발행" 토글 → status 변경 + 시각 표시 (status stamp cursive, "발행됨")
 - [ ] 빈 상태 메시지 — cursive 폰트로 "아직 저장된 포스트가 없습니다…"
 - [ ] "New blog" 버튼 → `/my-blog`로 이동

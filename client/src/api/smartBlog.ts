@@ -71,6 +71,12 @@ export function updatePost(id: string, input: UpdatePostInput): Promise<Post> {
   });
 }
 
+export function deletePost(id: string): Promise<{ id: string }> {
+  return requestData<{ id: string }>(`/api/posts/${encodeURIComponent(id)}`, {
+    method: "DELETE",
+  });
+}
+
 export function getSettings(): Promise<SettingsSummary> {
   return requestData<SettingsSummary>("/api/settings");
 }
