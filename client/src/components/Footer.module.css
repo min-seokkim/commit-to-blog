@@ -19,7 +19,3 @@
   text-transform: uppercase;
 }
 
-.footer__gear {
-  font-size: var(--size-gear-footer);
-  transform: rotate(var(--rotate-gear));
-}

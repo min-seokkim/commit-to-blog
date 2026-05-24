@@ -34,7 +34,7 @@
   --branch-develop-text: #173404;
 
   --font-serif: "Lora", "Noto Serif KR", Georgia, "본명조", serif;
-  --font-mono: "Courier Prime", "Special Elite", "D2Coding", "나눔고딕코딩", monospace;
+  --font-mono: "Courier Prime", "Nanum Gothic Coding", "Special Elite", "D2Coding", "나눔고딕코딩", monospace;
   --font-cursive: "Caveat", "Nanum Pen Script", "Patrick Hand", "나눔손글씨 펜체", cursive;
 
   --text-display-size: 32px;
@@ -112,6 +112,7 @@
     1px 3px 5px rgba(74, 53, 32, 0.16);
   --shadow-paper-edge: inset 0 0 0 1px rgba(74, 53, 32, 0.07),
     inset 0 0 4px rgba(74, 53, 32, 0.10);
+  --filter-gear-drop: drop-shadow(0 1px 1px rgba(74, 53, 32, 0.35));
 
   --grain-page: radial-gradient(ellipse at 12% 18%, rgba(155, 110, 70, 0.10), transparent 40%),
     radial-gradient(ellipse at 88% 25%, rgba(184, 140, 90, 0.09), transparent 35%),

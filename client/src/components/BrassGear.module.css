@@ -1,0 +1,23 @@
+.brass-gear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(var(--rotate-gear));
+}
+
+.brass-gear svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  filter: var(--filter-gear-drop);
+}
+
+.brass-gear--header {
+  inline-size: var(--size-gear-header);
+  block-size: var(--size-gear-header);
+}
+
+.brass-gear--footer {
+  inline-size: var(--size-gear-footer);
+  block-size: var(--size-gear-footer);
+}

@@ -26,12 +26,6 @@
   text-decoration: none;
 }
 
-.header__gear {
-  color: var(--color-accent-brass);
-  font-size: var(--size-gear-header);
-  transform: rotate(var(--rotate-gear));
-}
-
 .header__nav {
   display: flex;
   flex-wrap: wrap;

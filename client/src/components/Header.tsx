@@ -1,5 +1,6 @@
 import { NavLink } from "react-router";
 
+import BrassGear from "./BrassGear";
 import PageDivider from "./PageDivider";
 import styles from "./Header.module.css";
 
@@ -15,9 +16,7 @@ function Header() {
       <div className={styles["header__inner"]}>
         <NavLink to="/saved" className={styles["header__brand"]}>
           <span>스마트 블로그</span>
-          <span className={styles["header__gear"]} aria-hidden="true">
-            ⚙
-          </span>
+          <BrassGear size="header" />
         </NavLink>
         <nav className={styles["header__nav"]} aria-label="주 내비게이션">
           {NAV_ITEMS.map((item) => (

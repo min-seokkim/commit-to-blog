@@ -368,10 +368,12 @@ repeating-linear-gradient로 노트지 가로줄.
 황동 톱니바퀴 액센트. 헤더·푸터에 작게.
 
 ```
-- icon: <i class="ti ti-settings">
-- color: var(--color-accent-brass)
-- font-size: 18px (header) / 10px (footer)
+- inline SVG (toothed gear shape) — Phase 3a부터 unicode ⚙ 대신 실제 SVG
+- fill: radialGradient(brass-highlight → brass-main → brass-dark → brass-edge), origin 35%/32% (off-center)
+- inner hub: paper-100 fill + brass-edge stroke (drilled-hole 효과)
+- size: 18px (header) / 10px (footer)
 - transform: rotate(15–18deg) — 일부러 살짝 비틀어서 기계 부속 느낌
+- filter: drop-shadow 1px (sepia)
 - 헤더 워드마크 옆, 푸터 카피라이트 옆
 ```
 
@@ -417,8 +419,8 @@ repeating-linear-gradient로 노트지 가로줄.
 
 ```
 - "✦ ❦ ✦" unicode glyph
-- text-align: center, color: var(--color-accent-brass)
-- font-size: 18px, letter-spacing: 1em
+- text-align: center, color: var(--color-text-muted) (sepia ink — 황동 액센트와 충돌 방지)
+- font-size: var(--text-h2-size), letter-spacing: 1em
 - 섹션 종결 또는 페이지 푸터 위
 ```
 
