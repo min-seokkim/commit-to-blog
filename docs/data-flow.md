@@ -62,7 +62,7 @@
 
 1. 사용자가 카드의 "발행" 클릭.
 2. `useUpdatePost().update(id, { status: "published" })` → `PATCH /api/posts/:id` → status만 변경.
-3. 카드에 published 표시 (status stamp cursive).
+3. 카드에 published 표시 (Phase 3b부터 타자기 결 "PUBLISHED" 라벨).
 
 ### Flow E — 삭제
 

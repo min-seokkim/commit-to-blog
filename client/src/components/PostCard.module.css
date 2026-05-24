@@ -72,14 +72,16 @@
 }
 
 .post-card__stamp {
-  justify-self: end;
+  position: absolute;
+  inset-block-start: var(--space-3);
+  inset-inline-end: var(--space-3);
   color: var(--color-accent-wax);
-  font-family: var(--font-cursive);
-  font-size: var(--text-stamp-size);
-  font-weight: 500;
-  line-height: var(--text-stamp-line);
+  font-family: var(--font-typewriter);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.25em;
+  line-height: var(--text-meta-line);
   opacity: 0.85;
-  transform: rotate(var(--rotate-c));
+  text-transform: uppercase;
 }
 
 .post-card__actions {

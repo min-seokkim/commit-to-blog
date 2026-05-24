@@ -20,7 +20,7 @@ const ROTATES: PinnedSurfaceRotate[] = ["a", "b", "c", "d"];
 
 const STATUS_DISPLAY: Record<PostStatus, string> = {
   draft: "초안",
-  published: "발행됨",
+  published: "PUBLISHED",
 };
 
 function PostCard({

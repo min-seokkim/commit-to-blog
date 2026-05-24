@@ -36,6 +36,7 @@
   --font-serif: "Lora", "Noto Serif KR", Georgia, "본명조", serif;
   --font-mono: "Courier Prime", "Nanum Gothic Coding", "Special Elite", "D2Coding", "나눔고딕코딩", monospace;
   --font-cursive: "Caveat", "Nanum Pen Script", "Patrick Hand", "나눔손글씨 펜체", cursive;
+  --font-typewriter: "Special Elite", "Courier Prime", "Nanum Gothic Coding", monospace;
 
   --text-display-size: 32px;
   --text-display-line: 1;
@@ -57,8 +58,6 @@
   --text-meta-line: 1;
   --text-hand-label-size: 16px;
   --text-hand-label-line: 1.4;
-  --text-stamp-size: 14px;
-  --text-stamp-line: 1;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -164,10 +163,6 @@
   --size-gear-footer: 10px;
   --size-card-clip-offset-y: -14px;
   --size-card-clip-offset-x: 24px;
-  --rotate-a: -1.5deg;
-  --rotate-b: 1.2deg;
-  --rotate-c: -0.7deg;
-  --rotate-d: 2deg;
   --rotate-gear: 16deg;
   --z-toast: 20;
   --duration-toast-fade: 180ms;

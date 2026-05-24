@@ -170,7 +170,7 @@ GitHub 저장소의 커밋을 LLM으로 분석해 기술 블로그 초안을 자
 ### Flow C — 발행
 1. `/saved`에서 카드의 "발행" 버튼 클릭
 2. `status: draft → published` 토글
-3. 카드에 발행 상태 표시 ("발행됨" 도장 — 내부 enum은 `published` 유지)
+3. 카드에 발행 상태 표시 (타자기 결 "PUBLISHED" 라벨 — 내부 enum은 `published` 유지)
 
 ### Flow D — 삭제
 1. `/saved`에서 카드의 "삭제" 버튼 클릭

@@ -130,7 +130,7 @@
   - rotate angle 카드마다 변주 (seed 고정)
 - [ ] "편집" → `/post/:id/edit`로 이동
 - [ ] "삭제" → window.confirm 후 DELETE 호출 + 토스트 "삭제됨" + 목록 즉시 갱신
-- [ ] "발행" 토글 → status 변경 + 시각 표시 (status stamp cursive, "발행됨")
+- [ ] "발행" 토글 → status 변경 + 시각 표시 (Phase 3b부터 타자기 결 "PUBLISHED" 라벨)
 - [ ] 빈 상태 메시지 — cursive 폰트로 "아직 저장된 포스트가 없습니다…"
 - [ ] "New blog" 버튼 → `/my-blog`로 이동
 
