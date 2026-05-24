@@ -305,26 +305,24 @@ repeating-linear-gradient로 노트지 가로줄.
 
 ## 5. Component Patterns
 
-> **호버 규칙 (전체 공통)** — 카드·메모·핀 surface에는 **hover transform 일절 금지** (rotate / scale / translate / wiggle / lift 전부 X). 카드의 정적 rotate는 "책상 위 종이"의 의도된 기울기로 유지된다. 허용되는 hover 표현은: `cursor: pointer`, 그리고 box-shadow의 **미세한** 깊이 변화 한 가지. 더 강하게 떠올리고 싶더라도 다른 수단으로 풀지 말 것.
+> **호버 규칙 (전체 공통)** — 카드·메모·핀 surface에는 **hover transform 일절 금지** (rotate / scale / translate / wiggle / lift 전부 X). 카드는 **Phase 3b부터 수평** — 정적 rotate도 제거됐다 (이전엔 4 seed rotate로 살짝씩 기울어 있었음). 허용되는 hover 표현은: `cursor: pointer`, 그리고 box-shadow의 **미세한** 깊이 변화 한 가지. 더 강하게 떠올리고 싶더라도 다른 수단으로 풀지 말 것.
 
 ### 5.1 Pinned Card
 
-작은 종이 조각이 황동 압정으로 책상에 박힌 결.
+종이 조각이 클립으로 끼워진 결. **카드는 수평** — rotate 변주 없음 (Phase 3a까지 4 seed rotate로 살짝씩 기울어 있었으나 Phase 3b에서 제거).
 
 ```
-- transform: rotate(-1.5° ~ 2°) 살짝 랜덤 (4 seed a/b/c/d)
 - background: var(--color-surface-card) + var(--paper-noise-svg) + var(--grain-card-{seed})
 - border: var(--border-hairline)
 - box-shadow: var(--shadow-card), var(--shadow-card-inset), var(--shadow-paper-edge)
 - padding: 22px 22px 18px
 - position: relative
-- 압정: absolute, 14px 원, --fill-pin-brass, --shadow-pin
-- 압정 위치: top: -7px, left: 14px (Phase 3a부터 모든 PinnedSurface 동일 — top-left inset, 모서리 살짝 덮음)
+- 클립 위치: 카드 좌상단, 모서리에 살짝 위로 튀어나옴 (§5.1.1 참조)
 ```
 
-압정 위치는 카드마다 변주하지 않는다. 사용자 테스트에서 압정이 카드 밖으로 떠 보이는 인스턴스가 있어 Phase 3a부터 모든 카드 top-left inset으로 통일. 카드별 변주는 rotate seed + grain seed가 책임진다.
+카드별 변주는 **grain seed만 담당**한다. `.pinned-surface--rotate-{a,b,c,d}` 클래스는 호출부 호환을 위해 이름은 유지하되, 실제로는 `--grain-card-{a,b,c,d}` override만 적용 — rotate transform은 더 이상 적용되지 않는다.
 
-좌측 작은 commit memo는 같은 패턴의 축소판: 12px pin (`--size-pin-sm`), --shadow-memo + --shadow-paper-edge, --ruled-memo 깔린 배경, 동일한 top-left 압정 위치.
+좌측 작은 commit memo는 같은 패턴의 축소판: 작은 클립 (`--size-pin-sm` 기반), --shadow-memo + --shadow-paper-edge, --ruled-memo 깔린 배경.
 
 ### 5.1.1 Brass Pin (실제 황동 결)
 

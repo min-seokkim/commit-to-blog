@@ -59,22 +59,18 @@
 
 .pinned-surface--rotate-a {
   --grain-card: var(--grain-card-a);
-  transform: rotate(var(--rotate-a));
 }
 
 .pinned-surface--rotate-b {
   --grain-card: var(--grain-card-b);
-  transform: rotate(var(--rotate-b));
 }
 
 .pinned-surface--rotate-c {
   --grain-card: var(--grain-card-c);
-  transform: rotate(var(--rotate-c));
 }
 
 .pinned-surface--rotate-d {
   --grain-card: var(--grain-card-d);
-  transform: rotate(var(--rotate-d));
 }
 
 .pinned-surface__pin {
