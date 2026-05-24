@@ -1,0 +1,7 @@
+.llm-progress-ticker {
+  margin: 0;
+  color: var(--color-accent-wax);
+  font-family: var(--font-cursive);
+  font-size: var(--text-hand-label-size);
+  line-height: var(--text-hand-label-line);
+}

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 
+import LLMProgressTicker from "../components/LLMProgressTicker";
 import PinnedSurface from "../components/PinnedSurface";
 import PostEditor from "../components/PostEditor";
 import SecondaryButton from "../components/SecondaryButton";
@@ -287,6 +288,8 @@ function MyBlogPage() {
             )}
           </div>
         </PinnedSurface>
+
+        <LLMProgressTicker active={summary.loading} />
 
         <PinnedSurface variant="letter" rotate="d" pin="left">
           <PostEditor
