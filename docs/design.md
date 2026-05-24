@@ -312,17 +312,43 @@ repeating-linear-gradient로 노트지 가로줄.
 작은 종이 조각이 황동 압정으로 책상에 박힌 결.
 
 ```
-- transform: rotate(-1.5° ~ 2°) 살짝 랜덤
-- background: var(--color-surface-card) + --grain-card
+- transform: rotate(-1.5° ~ 2°) 살짝 랜덤 (4 seed a/b/c/d)
+- background: var(--color-surface-card) + var(--paper-noise-svg) + var(--grain-card-{seed})
 - border: var(--border-hairline)
-- box-shadow: var(--shadow-card), var(--shadow-card-inset)
+- box-shadow: var(--shadow-card), var(--shadow-card-inset), var(--shadow-paper-edge)
 - padding: 22px 22px 18px
 - position: relative
-- 압정: absolute, 12-16px 원, --fill-pin-brass, --shadow-pin
-- 압정 위치: top: -8px, 카드마다 다른 left/right로 변주 (단조로움 방지)
+- 압정: absolute, 14px 원, --fill-pin-brass, --shadow-pin
+- 압정 위치: top: -7px, left: 14px (Phase 3a부터 모든 PinnedSurface 동일 — top-left inset, 모서리 살짝 덮음)
 ```
 
-좌측 작은 commit memo는 같은 패턴의 축소판: 13px pin, --shadow-memo, --ruled-memo 깔린 배경.
+압정 위치는 카드마다 변주하지 않는다. 사용자 테스트에서 압정이 카드 밖으로 떠 보이는 인스턴스가 있어 Phase 3a부터 모든 카드 top-left inset으로 통일. 카드별 변주는 rotate seed + grain seed가 책임진다.
+
+좌측 작은 commit memo는 같은 패턴의 축소판: 12px pin (`--size-pin-sm`), --shadow-memo + --shadow-paper-edge, --ruled-memo 깔린 배경, 동일한 top-left 압정 위치.
+
+### 5.1.1 Brass Pin (실제 황동 결)
+
+평면 갈색이 아닌 진짜 황동 sphere 인상은 off-center radial-gradient로 만든다.
+
+```css
+.brass-pin {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--brass-highlight) 0%,  /* #F4E4A1 — 밝은 금 highlight */
+    var(--brass-main) 30%,      /* #D4A442 — main brass */
+    var(--brass-dark) 70%,      /* #8B6914 — dark brass */
+    var(--brass-edge) 100%      /* #5C4A0F — edge */
+  );
+  box-shadow:
+    0 2px 3px rgba(0,0,0,0.4),                /* drop */
+    inset 1px 1px 1px rgba(255,255,255,0.3),  /* spec highlight */
+    inset -1px -1px 2px rgba(0,0,0,0.3);      /* opposite-side shadow */
+}
+```
+
+핵심은 `circle at 30% 30%`의 **off-center** highlight — 광원이 좌상에서 비치는 sphere의 인상을 만든다. center origin이면 평면 disc로 읽힌다.
 
 ### 5.2 Wax Seal Button (발행 / 저장 / 새 글 쓰기)
 

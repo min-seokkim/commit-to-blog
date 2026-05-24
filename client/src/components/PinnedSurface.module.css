@@ -77,19 +77,8 @@
   transform: rotate(var(--rotate-d));
 }
 
-.pinned-surface--pin-left .pinned-surface__pin {
-  inset-inline-start: var(--size-pin-left-a);
-}
-
-.pinned-surface--pin-center .pinned-surface__pin {
-  inset-inline-start: var(--size-pin-left-b);
-}
-
-.pinned-surface--pin-right .pinned-surface__pin {
-  inset-inline-end: var(--size-pin-right-a);
-}
-
 .pinned-surface__pin {
   position: absolute;
-  inset-block-start: var(--size-card-pin-offset);
+  inset-block-start: var(--size-card-pin-offset-y);
+  inset-inline-start: var(--size-card-pin-offset-x);
 }

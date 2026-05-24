@@ -26,7 +26,7 @@ function SettingsPage() {
         </p>
       ) : null}
 
-      <PinnedSurface variant="card" rotate="a" pin="left">
+      <PinnedSurface variant="card" rotate="a">
         <dl className={styles["settings-page__list"]}>
           <div className={styles["settings-page__row"]}>
             <dt>LLM 모델</dt>

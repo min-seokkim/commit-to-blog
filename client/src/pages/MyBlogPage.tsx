@@ -219,7 +219,6 @@ function MyBlogPage() {
               key={commit.sha}
               variant="memo"
               rotate={index % 2 === 0 ? "a" : "b"}
-              pin={index % 2 === 0 ? "left" : "right"}
               className={
                 selectedSha === commit.sha
                   ? styles["my-blog-page__commit--selected"]
@@ -260,7 +259,7 @@ function MyBlogPage() {
           </p>
         ) : null}
 
-        <PinnedSurface variant="large" rotate="c" pin="right">
+        <PinnedSurface variant="large" rotate="c">
           <div className={styles["my-blog-page__commit-detail"]}>
             <p className={styles["my-blog-page__label"]}>선택한 커밋</p>
             {selectedCommitDetail.data !== null ? (
@@ -291,7 +290,7 @@ function MyBlogPage() {
 
         <LLMProgressTicker active={summary.loading} />
 
-        <PinnedSurface variant="letter" rotate="d" pin="left">
+        <PinnedSurface variant="letter" rotate="d">
           <PostEditor
             value={draft}
             onChange={updateDraft}

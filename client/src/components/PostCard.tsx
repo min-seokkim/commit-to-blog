@@ -27,7 +27,7 @@ function PostCard({ post, index, onPublish, publishing }: PostCardProps) {
   const rotate = ROTATES[index % ROTATES.length];
 
   return (
-    <PinnedSurface rotate={rotate} pin={index % 2 === 0 ? "left" : "right"}>
+    <PinnedSurface rotate={rotate}>
       <div className={styles["post-card"]}>
         <div className={styles["post-card__meta-row"]}>
           <span

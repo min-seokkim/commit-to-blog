@@ -66,7 +66,7 @@ function EditPostPage() {
         <p className={styles["edit-post-page__muted"]}>글을 불러오는 중...</p>
       ) : null}
 
-      <PinnedSurface variant="letter" rotate="b" pin="right">
+      <PinnedSurface variant="letter" rotate="b">
         <PostEditor
           value={draft}
           onChange={updateDraft}
