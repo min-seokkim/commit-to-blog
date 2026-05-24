@@ -73,7 +73,7 @@
 
 .post-card__stamp {
   position: absolute;
-  inset-block-start: var(--space-3);
+  inset-block-start: var(--space-2);
   inset-inline-end: var(--space-3);
   color: var(--color-accent-wax);
   font-family: var(--font-typewriter);
