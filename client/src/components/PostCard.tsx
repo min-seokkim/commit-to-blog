@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import type { Post, PostStatus } from "../types/commit";
 
@@ -51,7 +51,16 @@ function PostCard({
 
         <div className={styles["post-card__thumbnail"]} aria-hidden="true" />
 
-        <h2 className={styles["post-card__title"]}>{post.title}</h2>
+        {post.status === "published" ? (
+          <Link
+            to={`/post/${post.id}`}
+            className={styles["post-card__title-link"]}
+          >
+            <h2 className={styles["post-card__title"]}>{post.title}</h2>
+          </Link>
+        ) : (
+          <h2 className={styles["post-card__title"]}>{post.title}</h2>
+        )}
         <p className={styles["post-card__summary"]}>{post.summary}</p>
 
         {post.status === "published" ? (

@@ -22,7 +22,7 @@ const post: Post = {
 };
 
 describe("PostCard", () => {
-  it("renders post metadata and actions", () => {
+  it("renders draft metadata, actions, and leaves the title unlinked", () => {
     const onPublish = vi.fn();
     const onDelete = vi.fn();
 
@@ -41,6 +41,7 @@ describe("PostCard", () => {
 
     expect(screen.getByText("main")).toBeInTheDocument();
     expect(screen.getByText("토스트 시스템 추가")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /토스트 시스템 추가/ })).toBeNull();
     expect(screen.getByRole("button", { name: "편집" })).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "발행" }));
@@ -50,5 +51,23 @@ describe("PostCard", () => {
     fireEvent.click(screen.getByRole("button", { name: "삭제" }));
 
     expect(onDelete).toHaveBeenCalledWith(post);
+  });
+
+  it("links the title to the read view when published", () => {
+    render(
+      <MemoryRouter>
+        <PostCard
+          post={{ ...post, status: "published" }}
+          index={0}
+          onPublish={vi.fn()}
+          onDelete={vi.fn()}
+          publishing={false}
+          deleting={false}
+        />
+      </MemoryRouter>,
+    );
+
+    const link = screen.getByRole("link", { name: /토스트 시스템 추가/ });
+    expect(link).toHaveAttribute("href", `/post/${post.id}`);
   });
 });
