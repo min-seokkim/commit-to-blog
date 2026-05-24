@@ -6,14 +6,35 @@ import {
   readNumberProperty,
   readStringProperty,
 } from "../errors.js";
-import type { CommitNormalized } from "../types/commit.js";
+import type {
+  BranchSummary,
+  CommitNormalized,
+  CommitSummary,
+  RepositorySummary,
+} from "../types/commit.js";
 
 type GitHubClient = InstanceType<typeof Octokit>;
 type GitHubCommitData = Awaited<
   ReturnType<GitHubClient["rest"]["repos"]["getCommit"]>
 >["data"];
+type GitHubRepoData = Awaited<
+  ReturnType<GitHubClient["rest"]["repos"]["listForAuthenticatedUser"]>
+>["data"][number];
+type GitHubBranchData = Awaited<
+  ReturnType<GitHubClient["rest"]["repos"]["listBranches"]>
+>["data"][number];
+type GitHubCommitListData = Awaited<
+  ReturnType<GitHubClient["rest"]["repos"]["listCommits"]>
+>["data"][number];
 
 export type GitHubService = {
+  listRepos: () => Promise<RepositorySummary[]>;
+  listBranches: (owner: string, repo: string) => Promise<BranchSummary[]>;
+  listCommits: (
+    owner: string,
+    repo: string,
+    branch: string,
+  ) => Promise<CommitSummary[]>;
   getNormalizedCommit: (
     owner: string,
     repo: string,
@@ -22,17 +43,60 @@ export type GitHubService = {
 };
 
 export function createGitHubService(githubToken: string): GitHubService {
-  return {
-    async getNormalizedCommit(owner, repo, ref) {
-      if (githubToken.trim() === "") {
-        throw new ApiError(
-          500,
-          "GITHUB_AUTH",
-          "GitHub 토큰을 확인해주세요",
-        );
-      }
+  const octokit = new Octokit({ auth: githubToken });
 
-      const octokit = new Octokit({ auth: githubToken });
+  return {
+    async listRepos() {
+      ensureGitHubToken(githubToken);
+
+      try {
+        const response = await octokit.rest.repos.listForAuthenticatedUser({
+          sort: "updated",
+          direction: "desc",
+          per_page: 100,
+        });
+
+        return response.data.map(normalizeRepo);
+      } catch (error) {
+        throw mapGitHubError(error);
+      }
+    },
+
+    async listBranches(owner, repo) {
+      ensureGitHubToken(githubToken);
+
+      try {
+        const response = await octokit.rest.repos.listBranches({
+          owner,
+          repo,
+          per_page: 100,
+        });
+
+        return response.data.map(normalizeBranch);
+      } catch (error) {
+        throw mapGitHubError(error);
+      }
+    },
+
+    async listCommits(owner, repo, branch) {
+      ensureGitHubToken(githubToken);
+
+      try {
+        const response = await octokit.rest.repos.listCommits({
+          owner,
+          repo,
+          sha: branch,
+          per_page: 30,
+        });
+
+        return response.data.map(normalizeCommitSummary);
+      } catch (error) {
+        throw mapGitHubError(error);
+      }
+    },
+
+    async getNormalizedCommit(owner, repo, ref) {
+      ensureGitHubToken(githubToken);
 
       try {
         const response = await octokit.rest.repos.getCommit({
@@ -46,6 +110,48 @@ export function createGitHubService(githubToken: string): GitHubService {
         throw mapGitHubError(error);
       }
     },
+  };
+}
+
+function ensureGitHubToken(githubToken: string): void {
+  if (githubToken.trim() === "") {
+    throw new ApiError(500, "GITHUB_AUTH", "GitHub 토큰을 확인해주세요");
+  }
+}
+
+function normalizeRepo(repo: GitHubRepoData): RepositorySummary {
+  return {
+    name: repo.name,
+    fullName: repo.full_name,
+    owner: repo.owner.login,
+    defaultBranch: repo.default_branch,
+    isPrivate: repo.private,
+    updatedAt: repo.updated_at,
+    description: repo.description,
+  };
+}
+
+function normalizeBranch(branch: GitHubBranchData): BranchSummary {
+  return {
+    name: branch.name,
+    commitSha: branch.commit.sha,
+  };
+}
+
+function normalizeCommitSummary(commit: GitHubCommitListData): CommitSummary {
+  const authorName =
+    commit.commit.author?.name ?? commit.author?.login ?? "Unknown author";
+  const authorDate =
+    commit.commit.author?.date ??
+    commit.commit.committer?.date ??
+    new Date(0).toISOString();
+
+  return {
+    sha: commit.sha,
+    shortSha: commit.sha.slice(0, 7),
+    message: commit.commit.message,
+    author: authorName,
+    date: authorDate,
   };
 }
 

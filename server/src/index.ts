@@ -3,13 +3,17 @@ import express from "express";
 import type { NextFunction, Request, Response } from "express";
 
 import { config } from "./config.js";
+import { createDatabase } from "./data/db.js";
 import { ApiError, isRecord, sendApiError } from "./errors.js";
-import { createCommitTestRouter } from "./routes/commitTest.js";
+import { createGitHubRouter } from "./routes/github.js";
+import { createPostsRouter } from "./routes/posts.js";
+import { createSettingsRouter } from "./routes/settings.js";
 import { createSummaryRouter } from "./routes/summary.js";
 import { createGitHubService } from "./services/github.js";
 import { createOpenAIService } from "./services/openai.js";
 
 const app = express();
+const db = await createDatabase();
 const githubService = createGitHubService(config.githubToken);
 const openAIService = createOpenAIService({
   apiKey: config.openaiApiKey,
@@ -44,8 +48,10 @@ app.get("/api/health", (_request, response) => {
   response.json({ data: { ok: true } });
 });
 
-app.use("/api", createCommitTestRouter(githubService));
+app.use("/api", createGitHubRouter(githubService));
 app.use("/api", createSummaryRouter(openAIService));
+app.use("/api", createPostsRouter(db));
+app.use("/api", createSettingsRouter(config));
 
 app.use("/api", (_request, response) => {
   response.status(404).json({
