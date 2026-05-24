@@ -1,6 +1,6 @@
 .my-blog-page {
   display: grid;
-  grid-template-columns: minmax(var(--size-sidebar-width), var(--size-sidebar-width)) minmax(0, 1fr);
+  grid-template-columns: var(--size-sidebar-width) minmax(0, 1fr);
   gap: var(--space-8);
   align-items: start;
 }
@@ -9,6 +9,7 @@
 .my-blog-page__main {
   display: grid;
   gap: var(--space-5);
+  min-inline-size: 0;
 }
 
 .my-blog-page__field {
@@ -49,8 +50,10 @@
 .my-blog-page__commits {
   display: grid;
   gap: var(--space-4);
+  min-inline-size: 0;
   max-block-size: var(--size-commit-list-max-block);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding-block-start: var(--space-2);
   padding-inline: var(--space-1);
 }
@@ -76,6 +79,7 @@
   font-family: var(--font-serif);
   font-size: var(--text-preview-size);
   line-height: var(--text-preview-line);
+  overflow-wrap: anywhere;
 }
 
 .my-blog-page__commit-meta,

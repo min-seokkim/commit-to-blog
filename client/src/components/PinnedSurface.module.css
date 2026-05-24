@@ -1,5 +1,7 @@
 .pinned-surface {
   position: relative;
+  max-inline-size: 100%;
+  min-inline-size: 0;
   border: var(--border-hairline);
   background: var(--surface-card-background);
   box-shadow:
