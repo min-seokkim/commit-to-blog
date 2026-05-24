@@ -173,6 +173,22 @@
 
 ---
 
+## Phase 4 — Publication (2026-05-24)
+
+발행된 글의 read view + 글-diff side-by-side. 모두 완료.
+
+- [x] Post 엔티티에 `commitFiles?: Array<{ filename; patch }>` 추가 (서버 + 클라이언트 타입 + lowdb persist)
+- [x] `POST /api/posts`가 `commitFiles` payload 검증 후 persist (optional)
+- [x] MyBlogPage 저장 flow가 `selectedCommitDetail.data.files`를 같이 보냄
+- [x] `/post/:id` 라우트 + `ReadPostPage` 컴포넌트 (letter / card variant 3:2 grid, <800px stack)
+- [x] Patch line renderer — `+` add / `-` remove / `@` hunk / 그 외 context, semantic tokens `--color-add-bg` / `--color-remove-bg`
+- [x] draft 상태 진입 시 `/post/:id/edit`로 redirect
+- [x] `commitFiles` 없는 글은 "원본 변경 정보가 없습니다" 단일 메시지
+- [x] PostCard published 카드 제목이 `<Link to="/post/:id">` — draft는 plain `<h2>`
+- [x] ReadPostPage 통합 테스트 (render + edit 버튼 navigate + empty-diff 케이스), PostCard 링크 테스트
+
+---
+
 ## Stretch — 시간 여유 시
 
 - [ ] 멀티 에이전트 chain 고도화 (12주차 강의 결 활용)

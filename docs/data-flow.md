@@ -71,6 +71,14 @@
 3. 확인 → `useDeletePost().remove(id)` → `DELETE /api/posts/:id` → lowdb에서 제거.
 4. 성공 시 토스트 "삭제됨" + `usePosts().refetch()`로 목록 즉시 갱신. 실패 시 에러 토스트.
 
+### Flow F — Read view (Phase 4)
+
+1. `/saved`에서 발행된(`published`) 카드의 제목 클릭 → `<Link to="/post/:id">`.
+2. `usePost(id)` → `GET /api/posts/:id` → 단건 반환 (commitFiles 포함).
+3. `status === "draft"`면 `/post/:id/edit`로 즉시 redirect.
+4. 글(좌)과 commitFiles의 patch view(우)를 side-by-side로 렌더. patch 라인은 leading char로 add(+) / remove(-) / hunk(@) / context 분기.
+5. 하단 "편집" → `/post/:id/edit`, "목록으로" → `/saved`.
+
 ---
 
 ## 3. 데이터 변환 파이프라인
@@ -180,7 +188,7 @@ type LLMDraft = {
 
 ### 3.4 Post 엔티티
 
-LLM 출력 + 메타데이터 결합.
+LLM 출력 + 메타데이터 + 커밋 patch 결합.
 
 ```ts
 type Post = LLMDraft & {
@@ -190,11 +198,17 @@ type Post = LLMDraft & {
   commitSha: string;
   commitAuthor: string;
   commitDate: string;                  // ISO 8601
+  commitFiles?: Array<{                // Phase 4 — read view용 원본 변경
+    filename: string;
+    patch: string;                     // GitHub services에서 이미 size-cap 적용된 상태
+  }>;
   status: "draft" | "published";       // 초기 "draft"
   createdAt: string;                   // ISO 8601
   updatedAt: string;                   // ISO 8601
 };
 ```
+
+`commitFiles`는 optional. Phase 4 이전에 저장된 row는 필드 없이 lowdb에 남아 있을 수 있고, read view에서 빈 배열 / undefined 모두 "원본 변경 정보가 없습니다"로 처리한다. 저장 시점에는 클라이언트가 `selectedCommitDetail.data.files` (§3.1 `CommitNormalized.files`)를 그대로 payload에 포함해 서버가 lowdb에 persist.
 
 lowdb 스키마:
 

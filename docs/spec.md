@@ -60,9 +60,12 @@ GitHub 저장소의 커밋을 LLM으로 분석해 기술 블로그 초안을 자
 ### 3.6 화면 구조
 
 - `/my-blog` — 새 포스트 작성 (저장소·브랜치·커밋 선택 + AI 요약 + 편집)
-- `/saved` — 저장된 포스트 카드 목록
+- `/saved` — 저장된 포스트 카드 목록 (published 카드 제목은 `/post/:id` 링크)
+- `/post/:id` — 발행된 포스트 read view (글 + 원본 변경 side-by-side, Phase 4)
 - `/post/:id/edit` — 저장된 포스트 재편집
 - `/settings` — 환경 정보 / 토큰 상태 확인 (실제 토큰은 .env)
+
+`/post/:id`는 `status === "published"`일 때만 read view를 렌더한다. draft 상태로 진입하면 `/post/:id/edit`로 즉시 redirect.
 
 ## 4. 기능 범위 외 (Out-of-Scope)
 
@@ -90,13 +93,16 @@ GitHub 저장소의 커밋을 LLM으로 분석해 기술 블로그 초안을 자
   commitSha: string       // 짧은 hash 또는 전체
   commitAuthor: string
   commitDate: string      // ISO 8601
-  
+  commitFiles?: Array<{ filename: string; patch: string }>  // Phase 4 read view용 (size-capped, optional)
+
   // 상태
   status: "draft" | "published"
   createdAt: string       // ISO 8601
   updatedAt: string       // ISO 8601
 }
 ```
+
+`commitFiles`는 Phase 4부터 추가된 필드로 read view의 원본 변경 표시에 사용된다. 저장 시점 commit의 정규화된 file/patch 배열을 그대로 persist. 누락 가능 (Phase 4 이전에 저장된 글), 그 경우 read view는 "원본 변경 정보가 없습니다"로 표시.
 
 ### 저장 매체
 
