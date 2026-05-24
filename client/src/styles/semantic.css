@@ -26,8 +26,8 @@
   --color-branch-develop-bg: var(--branch-develop-bg);
   --color-branch-develop-text: var(--branch-develop-text);
 
-  --surface-page-background: var(--grain-page), var(--color-surface-page);
-  --surface-card-background: var(--grain-card), var(--color-surface-card);
-  --surface-memo-background: var(--ruled-memo), var(--grain-card), var(--color-surface-card);
-  --surface-letter-background: var(--ruled-letter), var(--grain-card), var(--color-surface-inset);
+  --surface-page-background: var(--vignette-page), var(--paper-noise-svg), var(--grain-page), var(--color-surface-page);
+  --surface-card-background: var(--paper-noise-svg), var(--grain-card), var(--color-surface-card);
+  --surface-memo-background: var(--ruled-memo), var(--paper-noise-svg), var(--grain-card), var(--color-surface-card);
+  --surface-letter-background: var(--ruled-letter), var(--paper-noise-svg), var(--grain-card), var(--color-surface-inset);
 }

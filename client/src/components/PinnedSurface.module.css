@@ -2,22 +2,31 @@
   position: relative;
   border: var(--border-hairline);
   background: var(--surface-card-background);
-  box-shadow: var(--shadow-card), var(--shadow-card-inset);
+  box-shadow:
+    var(--shadow-card),
+    var(--shadow-card-inset),
+    var(--shadow-paper-edge);
   color: var(--color-text-primary);
   transition: box-shadow 160ms ease;
 }
 
 .pinned-surface:hover {
-  box-shadow: var(--shadow-card-hover), var(--shadow-card-inset);
+  box-shadow:
+    var(--shadow-card-hover),
+    var(--shadow-card-inset),
+    var(--shadow-paper-edge);
 }
 
 .pinned-surface--memo:hover {
-  box-shadow: var(--shadow-memo-hover);
+  box-shadow: var(--shadow-memo-hover), var(--shadow-paper-edge);
 }
 
 .pinned-surface--letter:hover,
 .pinned-surface--large:hover {
-  box-shadow: var(--shadow-paper-large-hover), var(--shadow-paper-inset);
+  box-shadow:
+    var(--shadow-paper-large-hover),
+    var(--shadow-paper-inset),
+    var(--shadow-paper-edge);
 }
 
 .pinned-surface--card {
@@ -27,34 +36,44 @@
 .pinned-surface--memo {
   padding: var(--space-5) var(--space-4) var(--space-4);
   background: var(--surface-memo-background);
-  box-shadow: var(--shadow-memo);
+  box-shadow: var(--shadow-memo), var(--shadow-paper-edge);
 }
 
 .pinned-surface--letter {
   padding: var(--space-6);
   background: var(--surface-letter-background);
-  box-shadow: var(--shadow-paper-large), var(--shadow-paper-inset);
+  box-shadow:
+    var(--shadow-paper-large),
+    var(--shadow-paper-inset),
+    var(--shadow-paper-edge);
 }
 
 .pinned-surface--large {
   padding: var(--space-8);
   background: var(--surface-card-background);
-  box-shadow: var(--shadow-paper-large), var(--shadow-paper-inset);
+  box-shadow:
+    var(--shadow-paper-large),
+    var(--shadow-paper-inset),
+    var(--shadow-paper-edge);
 }
 
 .pinned-surface--rotate-a {
+  --grain-card: var(--grain-card-a);
   transform: rotate(var(--rotate-a));
 }
 
 .pinned-surface--rotate-b {
+  --grain-card: var(--grain-card-b);
   transform: rotate(var(--rotate-b));
 }
 
 .pinned-surface--rotate-c {
+  --grain-card: var(--grain-card-c);
   transform: rotate(var(--rotate-c));
 }
 
 .pinned-surface--rotate-d {
+  --grain-card: var(--grain-card-d);
   transform: rotate(var(--rotate-d));
 }
 
