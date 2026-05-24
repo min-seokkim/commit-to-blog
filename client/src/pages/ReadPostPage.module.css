@@ -1,0 +1,192 @@
+.read-post-page {
+  display: grid;
+  gap: var(--space-6);
+  inline-size: 100%;
+  max-inline-size: var(--size-read-page-max);
+  margin-inline: auto;
+}
+
+.read-post-page__grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .read-post-page__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.read-post-page__article {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.read-post-page__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.read-post-page__branch,
+.read-post-page__date {
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  letter-spacing: 0.08em;
+  line-height: var(--text-meta-line);
+  text-transform: uppercase;
+}
+
+.read-post-page__branch {
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-hairline);
+}
+
+.read-post-page__branch--main {
+  background: var(--color-branch-main-bg);
+  color: var(--color-branch-main-text);
+}
+
+.read-post-page__branch--develop {
+  background: var(--color-branch-develop-bg);
+  color: var(--color-branch-develop-text);
+}
+
+.read-post-page__branch--feature {
+  background: var(--color-branch-feature-bg);
+  color: var(--color-branch-feature-text);
+}
+
+.read-post-page__date {
+  color: var(--color-text-muted);
+}
+
+.read-post-page__title {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-family: var(--font-serif);
+  font-size: var(--text-h1-size);
+  font-style: italic;
+  font-weight: 500;
+  line-height: var(--text-h1-line);
+}
+
+.read-post-page__summary {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-serif);
+  font-size: var(--text-preview-size);
+  font-style: italic;
+  line-height: var(--text-preview-line);
+}
+
+.read-post-page__body {
+  color: var(--color-text-primary);
+  font-family: var(--font-serif);
+  font-size: var(--text-body-size);
+  line-height: var(--line-ruled-letter);
+}
+
+.read-post-page__body p {
+  margin-block: var(--space-3);
+}
+
+.read-post-page__patch {
+  display: grid;
+  gap: var(--space-4);
+  min-inline-size: 0;
+}
+
+.read-post-page__patch-heading {
+  margin: 0;
+  padding-block-end: var(--space-2);
+  border-block-end: 0.5px solid var(--color-accent-brass);
+  color: var(--color-accent-brass);
+  font-family: var(--font-mono);
+  font-size: var(--text-label-size);
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  line-height: var(--text-label-line);
+  text-transform: uppercase;
+}
+
+.read-post-page__patch-file {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.read-post-page__patch-file + .read-post-page__patch-file {
+  margin-block-start: var(--space-4);
+  padding-block-start: var(--space-4);
+  border-block-start: var(--border-double-ink-thin);
+}
+
+.read-post-page__filename {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: var(--text-meta-line);
+  overflow-wrap: anywhere;
+}
+
+.read-post-page__patch-body {
+  margin: 0;
+  padding: var(--space-2);
+  border: var(--border-hairline);
+  background: var(--color-surface-inset);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-meta-size);
+  line-height: 1.6;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.read-post-page__patch-line {
+  display: block;
+}
+
+.read-post-page__patch-line--add {
+  background: var(--color-add-bg);
+  color: var(--color-add-text);
+}
+
+.read-post-page__patch-line--remove {
+  background: var(--color-remove-bg);
+  color: var(--color-remove-text);
+}
+
+.read-post-page__patch-line--hunk {
+  color: var(--color-text-muted);
+}
+
+.read-post-page__empty,
+.read-post-page__muted {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-cursive);
+  font-size: var(--text-hand-label-size);
+  line-height: var(--text-hand-label-line);
+}
+
+.read-post-page__error {
+  margin: 0;
+  color: var(--color-accent-wax);
+  font-family: var(--font-cursive);
+  font-size: var(--text-hand-label-size);
+  line-height: var(--text-hand-label-line);
+}
+
+.read-post-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}

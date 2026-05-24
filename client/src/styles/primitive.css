@@ -33,6 +33,9 @@
   --branch-feature-text: #4B1528;
   --branch-develop-text: #173404;
 
+  --diff-add-bg: #E5EFE0;
+  --diff-remove-bg: #F4E2DE;
+
   --font-serif: "Lora", "Noto Serif KR", Georgia, "본명조", serif;
   --font-mono: "Courier Prime", "Nanum Gothic Coding", "Special Elite", "D2Coding", "나눔고딕코딩", monospace;
   --font-cursive: "Caveat", "Nanum Pen Script", "Patrick Hand", "나눔손글씨 펜체", cursive;
@@ -153,6 +156,7 @@
   --size-thumbnail-height: 120px;
   --size-sidebar-width: 240px;
   --size-content-max: 1180px;
+  --size-read-page-max: 1100px;
   --size-card-min: 320px;
   --size-editor-min-block: 280px;
   --size-preview-min-block: 180px;

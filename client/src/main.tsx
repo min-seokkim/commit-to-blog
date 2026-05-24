@@ -6,6 +6,7 @@ import { ToastProvider } from "./components/Toast";
 import Layout from "./components/Layout";
 import EditPostPage from "./pages/EditPostPage";
 import MyBlogPage from "./pages/MyBlogPage";
+import ReadPostPage from "./pages/ReadPostPage";
 import SavedPostsPage from "./pages/SavedPostsPage";
 import SettingsPage from "./pages/SettingsPage";
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "post/:id/edit",
         element: <EditPostPage />,
+      },
+      {
+        path: "post/:id",
+        element: <ReadPostPage />,
       },
       {
         path: "settings",

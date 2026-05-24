@@ -26,6 +26,11 @@
   --color-branch-develop-bg: var(--branch-develop-bg);
   --color-branch-develop-text: var(--branch-develop-text);
 
+  --color-add-bg: var(--diff-add-bg);
+  --color-add-text: var(--ink-100);
+  --color-remove-bg: var(--diff-remove-bg);
+  --color-remove-text: var(--ink-100);
+
   --surface-page-background: var(--vignette-page), var(--paper-noise-svg), var(--grain-page), var(--color-surface-page);
   --surface-card-background: var(--paper-noise-svg), var(--grain-card), var(--color-surface-card);
   --surface-memo-background: var(--ruled-memo), var(--paper-noise-svg), var(--grain-card), var(--color-surface-card);

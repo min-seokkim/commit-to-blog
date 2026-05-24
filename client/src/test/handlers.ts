@@ -54,9 +54,35 @@ export const mockDraft: LLMDraft = {
   body: "전역 `ToastProvider`를 추가해 저장, 수정, 요약 생성 결과를 화면 상단에서 안내하도록 개선했습니다. API 오류 코드는 한국어 메시지로 변환되어 사용자가 실패 원인을 더 쉽게 이해할 수 있습니다.",
 };
 
+export const mockPublishedPost: Post = {
+  id: "post-published-1",
+  title: "토스트 시스템 추가",
+  summary: "전역 토스트로 요청 결과를 명확하게 안내합니다.",
+  body: "전역 `ToastProvider`를 추가했습니다.",
+  repoName: "min-seokkim/smart-blog",
+  branch: "main",
+  commitSha: "abcdef1234567890",
+  commitAuthor: "Minseok",
+  commitDate: "2026-05-24T00:00:00.000Z",
+  commitFiles: [
+    {
+      filename: "client/src/components/Toast/ToastProvider.tsx",
+      patch:
+        "@@ -1,3 +1,5 @@\n import React from 'react';\n-const old = true;\n+export function ToastProvider() {}",
+    },
+  ],
+  status: "published",
+  createdAt: "2026-05-24T00:00:00.000Z",
+  updatedAt: "2026-05-24T00:00:00.000Z",
+};
+
 export const savedPostRequests: CreatePostInput[] = [];
 
 let posts: Post[] = [];
+
+export function seedPosts(nextPosts: Post[]): void {
+  posts = [...nextPosts];
+}
 
 export function resetTestState() {
   savedPostRequests.length = 0;
