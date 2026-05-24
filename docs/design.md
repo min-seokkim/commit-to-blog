@@ -295,7 +295,7 @@ repeating-linear-gradient로 노트지 가로줄.
 - 본문 body·정보성 메타데이터에는 cursive 절대 금지 (혼란).
 - 모든 mono 라벨은 `small-caps + letter-spacing: 0.08em ~ 0.12em` (typewriter 활자 결).
 - 모든 serif 제목은 `italic` (작가 손글씨가 활자화된 결).
-- cursive는 살짝 기울이거나(stamp) 자유롭게(placeholder).
+- cursive는 placeholder 자리에 자유롭게. (Phase 3b부터 status stamp 자리는 typewriter로 이동.)
 
 ---
 
@@ -473,8 +473,8 @@ radial-gradient layer 위에 SVG `feTurbulence` 노이즈를 data URI로 backgro
 
 ### 6.3 Hover interaction
 
-- **No hover transforms** — rotate / scale / translate / lift / wiggle 등 transform 변경 일절 금지 (§5 호버 규칙 참조). 사용자 테스트에서 카드 회전이 산만하다는 피드백이 있어 Phase 3a부터 제거됨.
-- 압정 박힌 카드: hover 시 box-shadow만 미세하게 깊어짐 (cursor pointer + 작은 elevation 변화). transform 변경 없음.
+- **No hover transforms** — rotate / scale / translate / lift / wiggle 등 transform 변경 일절 금지 (§5 호버 규칙 참조). Phase 3a에서 hover 회전을 제거했고, Phase 3b에서 카드 정적 rotate까지 제거 — 모든 카드는 수평.
+- 클립 박힌 카드: hover 시 box-shadow만 미세하게 깊어짐 (cursor pointer + 작은 elevation 변화). transform 변경 없음.
 - masking tape 디테일 (옵션): 정적 표현만, hover lift 없음.
 - 활성 nav: 펜으로 그은 듯한 underline은 활성 상태 자체로 표시 (draw-in 애니메이션 옵션, 그러나 transform 금지).
 
@@ -502,8 +502,8 @@ hover 시 카드에 따뜻한 amber glow 살짝. 황동·sepia 톤과 어울림.
   1. 다크 모드 미지원 (싱글 모드)
   2. 다크 변형 만들기 — 가죽 표지 + 황금 잉크 + 등잔 amber. 별개의 디자인 시스템에 가까워짐.
 - **한글-영문 손글씨 폰트 균형**: Caveat과 나눔손글씨 펜체가 굵기·기울기가 달라 함께 쓸 때 어색할 수 있음. 한국어 사용자가 많은 자리는 한글 폰트 단독으로 갈지 결정 필요.
-- **압정 색상 variation**: 모든 압정이 동일한 황동이면 단조롭고, 색을 다양화하면 산만. 1차 결정: 단색 황동 통일.
-- **status stamp의 색**: published = wine red, draft = brass? 또는 둘 다 wine red인데 draft는 더 옅게?
+- **클립 색상 variation**: ~~모든 압정이 동일한 황동이면 단조롭고~~ — Phase 3b에서 sphere pin이 paper clip으로 바뀌면서 자연스럽게 단색 brass-main solid stroke로 통일. 해소됨.
+- **status stamp의 색**: ~~published = wine red, draft = brass?~~ — Phase 3b에서 published만 카드에 노출되며 wine red typewriter 라벨로 확정. draft는 카드에 미표시. 해소됨.
 - **썸네일**: 현재 단색 paper-300으로 placeholder. 옵션: (a) 영구 placeholder, (b) LLM이 키워드 뽑아 vintage 사진 검색 (Unsplash + vintage tag), (c) 사용자가 직접 업로드. 현재 (a) 가정.
 
 ---
@@ -511,3 +511,5 @@ hover 시 카드에 따뜻한 amber glow 살짝. 황동·sepia 톤과 어울림.
 ## 8. 변경 이력
 
 - v0.1 (2026-05-19): 초안 작성
+- v0.2 (2026-05-24, Phase 3a): hover transform 정책, SVG paper noise + grain seed 4종, --shadow-paper-edge, brass 4-stop ramp (highlight/main/dark/edge), 클립 위치 통일, BrassGear SVG, Korean UI 정책, scrollbar 황동 결.
+- v0.3 (2026-05-24, Phase 3b): 카드 수평 — rotate 변주 제거 (grain seed만 유지). BrassPin sphere → PaperClip SVG (brass-main solid stroke). status stamp cursive `발행됨` → typewriter `PUBLISHED` 라벨 (--font-typewriter 추가).
