@@ -513,3 +513,4 @@ hover 시 카드에 따뜻한 amber glow 살짝. 황동·sepia 톤과 어울림.
 - v0.1 (2026-05-19): 초안 작성
 - v0.2 (2026-05-24, Phase 3a): hover transform 정책, SVG paper noise + grain seed 4종, --shadow-paper-edge, brass 4-stop ramp (highlight/main/dark/edge), 클립 위치 통일, BrassGear SVG, Korean UI 정책, scrollbar 황동 결.
 - v0.3 (2026-05-24, Phase 3b): 카드 수평 — rotate 변주 제거 (grain seed만 유지). BrassPin sphere → PaperClip SVG (brass-main solid stroke). status stamp cursive `발행됨` → typewriter `PUBLISHED` 라벨 (--font-typewriter 추가).
+- v0.4 (2026-05-24, Phase 3b hotfix): brass 4-stop ramp 채도 톤다운 — highlight/main/dark/edge HSL S 평균 ~22pt down (예: main `#D4A442` → `#B89555`). 새 황동 결이 아닌 **바랜 황동** 결로. PaperClip/BrassGear/scrollbar 모두 자동 반영.
