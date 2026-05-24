@@ -76,6 +76,8 @@ export type UpdatePostInput = Partial<
 
 export type SettingsSummary = {
   llmModel: string;
-  githubTokenConfigured: boolean;
-  openaiKeyConfigured: boolean;
+  githubToken: "configured" | "missing";
+  openaiKey: "configured" | "missing";
+  clientOrigin: string;
+  port: number;
 };

@@ -27,19 +27,19 @@ function SettingsPage() {
           </div>
           <div className={styles["settings-page__row"]}>
             <dt>GitHub token</dt>
-            <dd>
-              {settings.data?.githubTokenConfigured === true
-                ? "configured"
-                : "missing"}
-            </dd>
+            <dd>{settings.data?.githubToken ?? "loading"}</dd>
           </div>
           <div className={styles["settings-page__row"]}>
             <dt>OpenAI key</dt>
-            <dd>
-              {settings.data?.openaiKeyConfigured === true
-                ? "configured"
-                : "missing"}
-            </dd>
+            <dd>{settings.data?.openaiKey ?? "loading"}</dd>
+          </div>
+          <div className={styles["settings-page__row"]}>
+            <dt>Client origin</dt>
+            <dd>{settings.data?.clientOrigin ?? "loading"}</dd>
+          </div>
+          <div className={styles["settings-page__row"]}>
+            <dt>Server port</dt>
+            <dd>{settings.data?.port ?? "loading"}</dd>
           </div>
         </dl>
       </PinnedSurface>

@@ -68,4 +68,11 @@
 
 .settings-page__row dd {
   color: var(--color-text-primary);
+  font-family: var(--font-serif);
+  font-size: var(--text-body-size);
+  font-style: italic;
+  font-variant: normal;
+  letter-spacing: 0;
+  line-height: var(--text-body-line);
+  text-transform: none;
 }

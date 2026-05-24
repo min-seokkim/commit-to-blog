@@ -305,7 +305,7 @@ function MyBlogPage() {
                   }
                   onClick={saveDraft}
                 >
-                  Save and publish
+                  Save
                 </WaxSealButton>
               </>
             }

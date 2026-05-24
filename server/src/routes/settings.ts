@@ -5,8 +5,10 @@ import type { ApiSuccess } from "../types/commit.js";
 
 export type SettingsSummary = {
   llmModel: string;
-  githubTokenConfigured: boolean;
-  openaiKeyConfigured: boolean;
+  githubToken: "configured" | "missing";
+  openaiKey: "configured" | "missing";
+  clientOrigin: string;
+  port: number;
 };
 
 export function createSettingsRouter(config: ServerConfig): Router {
@@ -16,8 +18,12 @@ export function createSettingsRouter(config: ServerConfig): Router {
     const payload: ApiSuccess<SettingsSummary> = {
       data: {
         llmModel: config.llmModel,
-        githubTokenConfigured: config.githubToken.trim() !== "",
-        openaiKeyConfigured: config.openaiApiKey.trim() !== "",
+        githubToken:
+          config.githubToken.trim() !== "" ? "configured" : "missing",
+        openaiKey:
+          config.openaiApiKey.trim() !== "" ? "configured" : "missing",
+        clientOrigin: config.clientOrigin,
+        port: config.port,
       },
     };
 
