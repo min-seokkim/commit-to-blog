@@ -299,6 +299,8 @@ repeating-linear-gradient로 노트지 가로줄.
 
 ## 5. Component Patterns
 
+> **호버 규칙 (전체 공통)** — 카드·메모·핀 surface에는 **hover transform 일절 금지** (rotate / scale / translate / wiggle / lift 전부 X). 카드의 정적 rotate는 "책상 위 종이"의 의도된 기울기로 유지된다. 허용되는 hover 표현은: `cursor: pointer`, 그리고 box-shadow의 **미세한** 깊이 변화 한 가지. 더 강하게 떠올리고 싶더라도 다른 수단으로 풀지 말 것.
+
 ### 5.1 Pinned Card
 
 작은 종이 조각이 황동 압정으로 책상에 박힌 결.
@@ -429,9 +431,10 @@ radial-gradient layer 위에 SVG `<filter>` 의 turbulence + displacement로 미
 
 ### 6.3 Hover interaction
 
-- 압정 박힌 카드: hover 시 0.3deg 살짝 회전 변화 + box-shadow 강화 (책상에서 살짝 떠오름)
-- masking tape 디테일 (옵션): hover 시 tape 끝이 살짝 lift
-- 활성 nav: 펜으로 그은 듯한 underline draw-in 애니메이션
+- **No hover transforms** — rotate / scale / translate / lift / wiggle 등 transform 변경 일절 금지 (§5 호버 규칙 참조). 사용자 테스트에서 카드 회전이 산만하다는 피드백이 있어 Phase 3a부터 제거됨.
+- 압정 박힌 카드: hover 시 box-shadow만 미세하게 깊어짐 (cursor pointer + 작은 elevation 변화). transform 변경 없음.
+- masking tape 디테일 (옵션): 정적 표현만, hover lift 없음.
+- 활성 nav: 펜으로 그은 듯한 underline은 활성 상태 자체로 표시 (draw-in 애니메이션 옵션, 그러나 transform 금지).
 
 ### 6.4 Frayed paper edge
 

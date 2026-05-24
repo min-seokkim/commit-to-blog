@@ -4,13 +4,20 @@
   background: var(--surface-card-background);
   box-shadow: var(--shadow-card), var(--shadow-card-inset);
   color: var(--color-text-primary);
-  transition:
-    transform 160ms ease,
-    box-shadow 160ms ease;
+  transition: box-shadow 160ms ease;
 }
 
 .pinned-surface:hover {
-  transform: rotate(var(--rotate-hover));
+  box-shadow: var(--shadow-card-hover), var(--shadow-card-inset);
+}
+
+.pinned-surface--memo:hover {
+  box-shadow: var(--shadow-memo-hover);
+}
+
+.pinned-surface--letter:hover,
+.pinned-surface--large:hover {
+  box-shadow: var(--shadow-paper-large-hover), var(--shadow-paper-inset);
 }
 
 .pinned-surface--card {
