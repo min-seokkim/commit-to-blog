@@ -163,6 +163,7 @@
   --size-gear-footer: 10px;
   --size-card-clip-offset-y: -14px;
   --size-card-clip-offset-x: 24px;
+  --space-clip-clearance: 20px;
   --rotate-gear: 16deg;
   --z-toast: 20;
   --duration-toast-fade: 180ms;
