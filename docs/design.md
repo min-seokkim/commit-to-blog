@@ -226,13 +226,6 @@ repeating-linear-gradient로 노트지 가로줄.
             var(--wine-100) 55%,
             var(--wine-200) 100%);
 
-/* Brass pin */
---fill-pin-brass: radial-gradient(circle at 35% 30%,
-                  var(--brass-50) 0%,
-                  var(--brass-100) 35%,
-                  var(--brass-200) 75%,
-                  var(--brass-300) 100%);
-
 /* Brass badge (commit SHA) */
 --fill-brass-badge: linear-gradient(180deg,
                     #DDC290 0%, #C9AC78 100%);
@@ -324,29 +317,33 @@ repeating-linear-gradient로 노트지 가로줄.
 
 좌측 작은 commit memo는 같은 패턴의 축소판: 작은 클립 (`--size-pin-sm` 기반), --shadow-memo + --shadow-paper-edge, --ruled-memo 깔린 배경.
 
-### 5.1.1 Brass Pin (실제 황동 결)
+### 5.1.1 Paper Clip (Phase 3b)
 
-평면 갈색이 아닌 진짜 황동 sphere 인상은 off-center radial-gradient로 만든다.
+Phase 3a까지 사용했던 황동 sphere pin은 Phase 3b 목업에서 **페이퍼 클립**으로 교체. 황동 radial-gradient 결은 더 이상 사용하지 않는다 (스크롤바와 톱니바퀴 ornament만 황동 ramp 유지).
 
-```css
-.brass-pin {
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 30% 30%,
-    var(--brass-highlight) 0%,  /* #F4E4A1 — 밝은 금 highlight */
-    var(--brass-main) 30%,      /* #D4A442 — main brass */
-    var(--brass-dark) 70%,      /* #8B6914 — dark brass */
-    var(--brass-edge) 100%      /* #5C4A0F — edge */
-  );
-  box-shadow:
-    0 2px 3px rgba(0,0,0,0.4),                /* drop */
-    inset 1px 1px 1px rgba(255,255,255,0.3),  /* spec highlight */
-    inset -1px -1px 2px rgba(0,0,0,0.3);      /* opposite-side shadow */
-}
+```tsx
+<svg viewBox="0 0 24 50">
+  <path
+    d="M5 5 L5 38 A5.5 5.5 0 0 0 16 38 L16 13
+       A4 4 0 0 0 8 13 L8 30 A2.5 2.5 0 0 0 13 30 L13 19"
+    fill="none"
+    stroke="var(--brass-main)"
+    stroke-width="3.2"
+    stroke-linecap="round"
+  />
+</svg>
 ```
 
-핵심은 `circle at 30% 30%`의 **off-center** highlight — 광원이 좌상에서 비치는 sphere의 인상을 만든다. center origin이면 평면 disc로 읽힌다.
+```
+- stroke: var(--brass-main) — solid color, gradient X
+- stroke-width: 3.2, stroke-linecap: round
+- fill: none (와이어 결)
+- 크기: medium 24×50 (--size-clip-md-w/h), small 20×40 (--size-clip-sm-w/h, memo variant)
+- 슬롯 위치 (PinnedSurface.__pin): top -14px / left 24px — 카드 좌상단 모서리에 끼워진 결로 살짝 위로 튀어나옴
+- drop-shadow: var(--filter-clip-drop) — Phase 3a sphere pin보다 약하게 (0.5/1/1.5 sepia 18%)
+```
+
+종이 카드를 책상에 박은 sphere pin이 아닌 **클립으로 끼워진** 인상을 의도. 와이어 단면 그림자가 약해야 자연스럽다.
 
 ### 5.2 Wax Seal Button (발행 / 저장 / 새 글 쓰기)
 

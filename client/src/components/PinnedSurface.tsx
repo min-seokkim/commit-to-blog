@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import BrassPin from "./BrassPin";
+import PaperClip from "./PaperClip";
 import styles from "./PinnedSurface.module.css";
 
 export type PinnedSurfaceVariant = "card" | "memo" | "letter" | "large";
@@ -31,7 +31,7 @@ function PinnedSurface({
   return (
     <article className={classes}>
       <span className={styles["pinned-surface__pin"]}>
-        <BrassPin size={variant === "memo" ? "small" : "medium"} />
+        <PaperClip size={variant === "memo" ? "small" : "medium"} />
       </span>
       {children}
     </article>

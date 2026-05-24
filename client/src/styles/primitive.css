@@ -99,9 +99,6 @@
   --shadow-paper-large-hover: 5px 10px 22px rgba(74, 53, 32, 0.28),
     2px 5px 8px rgba(74, 53, 32, 0.16);
   --shadow-paper-inset: inset 0 0 40px rgba(184, 140, 90, 0.06);
-  --shadow-pin: 0 2px 3px rgba(0, 0, 0, 0.4),
-    inset 1px 1px 1px rgba(255, 255, 255, 0.3),
-    inset -1px -1px 2px rgba(0, 0, 0, 0.3);
   --shadow-wax: 0 3px 6px rgba(0, 0, 0, 0.25),
     inset 0 1px 1px rgba(255, 200, 180, 0.18),
     inset 0 -1px 2px rgba(0, 0, 0, 0.2);
@@ -113,6 +110,7 @@
   --shadow-paper-edge: inset 0 0 0 1px rgba(74, 53, 32, 0.07),
     inset 0 0 4px rgba(74, 53, 32, 0.10);
   --filter-gear-drop: drop-shadow(0 1px 1px rgba(74, 53, 32, 0.35));
+  --filter-clip-drop: drop-shadow(0.5px 1px 1.5px rgba(0, 0, 0, 0.18));
 
   --grain-page: radial-gradient(ellipse at 12% 18%, rgba(155, 110, 70, 0.10), transparent 40%),
     radial-gradient(ellipse at 88% 25%, rgba(184, 140, 90, 0.09), transparent 35%),
@@ -146,18 +144,13 @@
     rgba(74, 53, 32, 0.10) 25px
   );
   --fill-wax: radial-gradient(circle at 32% 28%, var(--wine-50) 0%, var(--wine-100) 55%, var(--wine-200) 100%);
-  --fill-pin-brass: radial-gradient(
-    circle at 30% 30%,
-    var(--brass-highlight) 0%,
-    var(--brass-main) 30%,
-    var(--brass-dark) 70%,
-    var(--brass-edge) 100%
-  );
   --fill-brass-badge: linear-gradient(180deg, #DDC290 0%, #C9AC78 100%);
 
   --line-ruled-letter: 25px;
-  --size-pin-sm: 12px;
-  --size-pin-md: 14px;
+  --size-clip-sm-w: 20px;
+  --size-clip-sm-h: 40px;
+  --size-clip-md-w: 24px;
+  --size-clip-md-h: 50px;
   --size-thumbnail-height: 120px;
   --size-sidebar-width: 240px;
   --size-content-max: 1180px;
@@ -169,8 +162,8 @@
   --size-toast-width: 320px;
   --size-gear-header: 18px;
   --size-gear-footer: 10px;
-  --size-card-pin-offset-y: -7px;
-  --size-card-pin-offset-x: 14px;
+  --size-card-clip-offset-y: -14px;
+  --size-card-clip-offset-x: 24px;
   --rotate-a: -1.5deg;
   --rotate-b: 1.2deg;
   --rotate-c: -0.7deg;

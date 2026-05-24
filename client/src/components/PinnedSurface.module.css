@@ -75,6 +75,6 @@
 
 .pinned-surface__pin {
   position: absolute;
-  inset-block-start: var(--size-card-pin-offset-y);
-  inset-inline-start: var(--size-card-pin-offset-x);
+  inset-block-start: var(--size-card-clip-offset-y);
+  inset-inline-start: var(--size-card-clip-offset-x);
 }

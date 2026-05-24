@@ -89,7 +89,7 @@
 - [ ] `<Fleuron>` — `✦ ❦ ✦` 푸터/섹션 ornament
 - [ ] `<Footer>` — small-caps 푸터
 - [ ] `<WaxSealButton>` — 발행, 저장, 새 글 쓰기 공용
-- [ ] `<BrassPin>` — 압정 SVG/CSS 컴포넌트
+- [ ] `<PaperClip>` — 페이퍼 클립 SVG 컴포넌트 (Phase 3b — BrassPin sphere에서 교체)
 - [ ] `<PinnedSurface>` — 회전 + 압정 + 그림자 wrapper
 
 ### 2.7 데이터 hook

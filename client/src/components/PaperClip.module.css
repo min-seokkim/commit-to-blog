@@ -1,0 +1,22 @@
+.paper-clip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper-clip svg {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  filter: var(--filter-clip-drop);
+}
+
+.paper-clip--small {
+  inline-size: var(--size-clip-sm-w);
+  block-size: var(--size-clip-sm-h);
+}
+
+.paper-clip--medium {
+  inline-size: var(--size-clip-md-w);
+  block-size: var(--size-clip-md-h);
+}
