@@ -1,36 +1,59 @@
 :root {
-  --paper-50: #f2e4c2;
-  --paper-100: #e8dab8;
-  --paper-200: #dcc4a3;
-  --paper-300: #c6ac7c;
-  --paper-400: #b89a6e;
-  --paper-500: #9c7f5c;
+  --paper-50: #F2E4C2;
+  --paper-100: #E8DAB8;
+  --paper-200: #DCC4A3;
+  --paper-300: #C6AC7C;
+  --paper-400: #B89A6E;
+  --paper-500: #9C7F5C;
 
-  --ink-50: #6b4f35;
-  --ink-100: #4a3520;
-  --ink-200: #2a1f12;
-  --ink-300: #1a0f08;
+  --ink-50: #6B4F35;
+  --ink-100: #4A3520;
+  --ink-200: #2A1F12;
+  --ink-300: #1A0F08;
 
-  --brass-50: #e8c078;
-  --brass-100: #c19a6b;
-  --brass-200: #8b6f47;
-  --brass-300: #5a4220;
+  --brass-50: #E8C078;
+  --brass-100: #C19A6B;
+  --brass-200: #8B6F47;
+  --brass-300: #5A4220;
 
-  --wine-50: #a52525;
-  --wine-100: #7a1a1a;
-  --wine-200: #5a0f0f;
-  --wine-300: #3a0808;
+  --wine-50: #A52525;
+  --wine-100: #7A1A1A;
+  --wine-200: #5A0F0F;
+  --wine-300: #3A0808;
 
-  --branch-main-bg: #d8be92;
-  --branch-feature-bg: #e2c0cc;
-  --branch-develop-bg: #c5d4a6;
-  --branch-main-text: #2a1f12;
-  --branch-feature-text: #4b1528;
+  --branch-main-bg: #D8BE92;
+  --branch-feature-bg: #E2C0CC;
+  --branch-develop-bg: #C5D4A6;
+  --branch-main-text: #2A1F12;
+  --branch-feature-text: #4B1528;
   --branch-develop-text: #173404;
 
-  --font-serif: "Lora", "Noto Serif KR", Georgia, serif;
-  --font-mono: "Courier Prime", "Special Elite", "D2Coding", monospace;
-  --font-cursive: "Caveat", "Patrick Hand", cursive;
+  --font-serif: "Lora", "Noto Serif KR", Georgia, "본명조", serif;
+  --font-mono: "Courier Prime", "Special Elite", "D2Coding", "나눔고딕코딩", monospace;
+  --font-cursive: "Caveat", "Nanum Pen Script", "Patrick Hand", "나눔손글씨 펜체", cursive;
+
+  --text-display-size: 32px;
+  --text-display-line: 1;
+  --text-h1-size: 26px;
+  --text-h1-line: 1.2;
+  --text-brand-size: 28px;
+  --text-brand-line: 1;
+  --text-h2-size: 19px;
+  --text-h2-line: 1.3;
+  --text-body-size: 13.5px;
+  --text-body-line: 1.85;
+  --text-preview-size: 12px;
+  --text-preview-line: 1.8;
+  --text-label-size: 11px;
+  --text-label-line: 1;
+  --text-button-size: 11px;
+  --text-button-line: 1;
+  --text-meta-size: 10px;
+  --text-meta-line: 1;
+  --text-hand-label-size: 16px;
+  --text-hand-label-line: 1.4;
+  --text-stamp-size: 14px;
+  --text-stamp-line: 1;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -46,4 +69,61 @@
   --radius-sm: 2px;
   --radius-md: 3px;
   --radius-full: 50%;
+
+  --border-hairline: 0.5px solid var(--paper-400);
+  --border-strong: 1.5px solid var(--ink-200);
+  --border-divider-double: 1px double rgba(74, 53, 32, 0.45);
+  --border-double-ink-thin: 1px double rgba(74, 53, 32, 0.3);
+  --border-active-nav: underline double 0.5px var(--wine-100);
+
+  --shadow-card: 4px 7px 14px rgba(74, 53, 32, 0.22),
+    2px 3px 5px rgba(74, 53, 32, 0.12);
+  --shadow-card-inset: inset 0 0 30px rgba(184, 140, 90, 0.06);
+  --shadow-paper-large: 4px 8px 18px rgba(74, 53, 32, 0.22),
+    2px 4px 6px rgba(74, 53, 32, 0.12);
+  --shadow-paper-inset: inset 0 0 40px rgba(184, 140, 90, 0.06);
+  --shadow-pin: 0 3px 5px rgba(0, 0, 0, 0.4),
+    inset -1px -2px 3px rgba(0, 0, 0, 0.3),
+    inset 1px 1px 1px rgba(255, 225, 160, 0.6);
+  --shadow-wax: 0 3px 6px rgba(0, 0, 0, 0.25),
+    inset 0 1px 1px rgba(255, 200, 180, 0.18),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-input: inset 0 1px 2px rgba(74, 53, 32, 0.12);
+  --shadow-memo: 3px 5px 10px rgba(74, 53, 32, 0.22),
+    1px 2px 4px rgba(74, 53, 32, 0.12);
+
+  --grain-page: radial-gradient(ellipse at 12% 18%, rgba(155, 110, 70, 0.10), transparent 40%),
+    radial-gradient(ellipse at 88% 25%, rgba(184, 140, 90, 0.09), transparent 35%),
+    radial-gradient(ellipse at 65% 78%, rgba(120, 82, 45, 0.08), transparent 40%),
+    radial-gradient(ellipse at 25% 92%, rgba(184, 140, 90, 0.07), transparent 32%);
+  --grain-card: radial-gradient(ellipse at 22% 32%, rgba(155, 110, 70, 0.07), transparent 45%),
+    radial-gradient(ellipse at 78% 18%, rgba(184, 140, 90, 0.06), transparent 40%),
+    radial-gradient(ellipse at 88% 82%, rgba(120, 82, 45, 0.05), transparent 35%);
+  --ruled-memo: repeating-linear-gradient(
+    transparent 0,
+    transparent 19px,
+    rgba(74, 53, 32, 0.10) 19px,
+    rgba(74, 53, 32, 0.10) 20px
+  );
+  --ruled-letter: repeating-linear-gradient(
+    transparent 0,
+    transparent 24px,
+    rgba(74, 53, 32, 0.10) 24px,
+    rgba(74, 53, 32, 0.10) 25px
+  );
+  --fill-wax: radial-gradient(circle at 32% 28%, var(--wine-50) 0%, var(--wine-100) 55%, var(--wine-200) 100%);
+  --fill-pin-brass: radial-gradient(circle at 35% 30%, var(--brass-50) 0%, var(--brass-100) 35%, var(--brass-200) 75%, var(--brass-300) 100%);
+  --fill-brass-badge: linear-gradient(180deg, #DDC290 0%, #C9AC78 100%);
+
+  --line-ruled-letter: 25px;
+  --size-pin-sm: 13px;
+  --size-pin-md: 16px;
+  --size-thumbnail-height: 120px;
+  --size-sidebar-width: 240px;
+  --size-content-max: 1180px;
+  --size-card-min: 320px;
+  --rotate-a: -1.5deg;
+  --rotate-b: 1.2deg;
+  --rotate-c: -0.7deg;
+  --rotate-d: 2deg;
 }

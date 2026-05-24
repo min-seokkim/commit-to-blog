@@ -12,6 +12,7 @@
   "dependencies": {
     "react": "latest",
     "react-dom": "latest",
+    "react-markdown": "^10.1.0",
     "react-router": "latest"
   },
   "devDependencies": {
