@@ -8,13 +8,16 @@
 .my-blog-page__aside,
 .my-blog-page__main {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-5);
   min-inline-size: 0;
 }
 
 .my-blog-page__field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2);
+  min-inline-size: 0;
 }
 
 .my-blog-page__label,
@@ -31,6 +34,9 @@
 }
 
 .my-blog-page__input {
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: 100%;
   min-block-size: var(--size-input-min-block);
   padding: var(--space-2) var(--space-3);
   border: var(--border-input);
@@ -40,6 +46,7 @@
   color: var(--color-text-primary);
   font-family: var(--font-mono);
   font-size: var(--text-preview-size);
+  text-overflow: ellipsis;
 }
 
 .my-blog-page__input:focus {
@@ -49,6 +56,7 @@
 
 .my-blog-page__commits {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   min-inline-size: 0;
   max-block-size: var(--size-commit-list-max-block);
@@ -64,8 +72,10 @@
 
 .my-blog-page__commit-button {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2);
   inline-size: 100%;
+  min-inline-size: 0;
   margin: 0;
   padding: 0;
   border: 0;
@@ -85,6 +95,11 @@
 .my-blog-page__commit-meta,
 .my-blog-page__muted {
   color: var(--color-text-muted);
+}
+
+.my-blog-page__commit-sha,
+.my-blog-page__commit-meta {
+  overflow-wrap: anywhere;
 }
 
 .my-blog-page__main {
