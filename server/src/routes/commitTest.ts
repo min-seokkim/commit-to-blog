@@ -5,9 +5,9 @@ import type { GitHubService } from "../services/github.js";
 import type { ApiSuccess, CommitNormalized } from "../types/commit.js";
 
 const TEST_COMMIT = {
-  owner: "OWNER",
-  repo: "REPO",
-  sha: "SHA",
+  owner: "min-seokkim",
+  repo: "gwanak-bnb",
+  sha: "302e41ddaf24300f9d0a9a3009ffd58e39426276",
 };
 
 export function createCommitTestRouter(githubService: GitHubService): Router {
