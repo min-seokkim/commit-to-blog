@@ -288,12 +288,15 @@ function MyBlogPage() {
           </div>
         </PinnedSurface>
 
-        <LLMProgressTicker active={summary.loading} />
-
         <PinnedSurface variant="letter" rotate="d">
           <PostEditor
             value={draft}
             onChange={updateDraft}
+            eyebrow={
+              summary.loading ? (
+                <LLMProgressTicker active />
+              ) : undefined
+            }
             actions={
               <>
                 <SecondaryButton onClick={() => navigate("/saved")}>

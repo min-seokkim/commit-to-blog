@@ -9,7 +9,7 @@ type PostEditorProps = {
   value: LLMDraft;
   onChange: (field: keyof LLMDraft, value: string) => void;
   actions: ReactNode;
-  eyebrow?: string;
+  eyebrow?: ReactNode;
   title?: string;
 };
 
@@ -23,7 +23,11 @@ function PostEditor({
   return (
     <section className={styles["post-editor"]}>
       <div className={styles["post-editor__header"]}>
-        <p className={styles["post-editor__eyebrow"]}>{eyebrow}</p>
+        {typeof eyebrow === "string" ? (
+          <p className={styles["post-editor__eyebrow"]}>{eyebrow}</p>
+        ) : (
+          eyebrow
+        )}
         <h2 className={styles["post-editor__title"]}>{title}</h2>
       </div>
 
