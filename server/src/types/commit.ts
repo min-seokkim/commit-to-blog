@@ -25,6 +25,12 @@ export type LLMDraft = {
   body: string;
 };
 
+export type CommitAnalysis = {
+  intent: string;
+  key_changes: string[];
+  affected_areas: string[];
+};
+
 export type RepositorySummary = {
   name: string;
   fullName: string;

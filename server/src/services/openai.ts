@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import type { ChatCompletion } from "openai/resources/chat/completions";
 
 import {
   ApiError,
@@ -6,15 +7,37 @@ import {
   readNumberProperty,
   readStringProperty,
 } from "../errors.js";
-import type { CommitNormalized, LLMDraft } from "../types/commit.js";
+import type {
+  CommitAnalysis,
+  CommitNormalized,
+  LLMDraft,
+} from "../types/commit.js";
 
-const SYSTEM_PROMPT = `당신은 개발자를 위한 기술 블로그 작성자입니다.
+const SINGLE_SHOT_SYSTEM_PROMPT = `당신은 개발자를 위한 기술 블로그 작성자입니다.
 주어진 GitHub 커밋 정보를 분석해 200-500자의 기능 설명형 글을 작성합니다.
+반드시 한국어로 작성합니다.
 반드시 다음 JSON 스키마로 응답하세요:
 { "title": string, "summary": string, "body": string }
 - title: 1줄 짧은 제목
 - summary: 1-2문장 미리보기
 - body: 200-500자 본문, Markdown 가능`;
+
+const EXTRACT_SYSTEM_PROMPT = `You are a precise code-change analyst.
+Given a normalized GitHub commit, extract only the technical intent and concrete changes.
+Return strict JSON with this schema:
+{ "intent": string, "key_changes": string[], "affected_areas": string[] }
+- intent: one concise sentence explaining why this commit exists
+- key_changes: 2-6 concrete implementation changes
+- affected_areas: 1-5 code or product areas touched
+Do not write prose outside JSON.`;
+
+const WRITE_SYSTEM_PROMPT = `당신은 개발자를 위한 한국어 기술 블로그 작성자입니다.
+분석 결과와 원본 커밋 메타데이터를 바탕으로 기능 설명형 초안을 작성합니다.
+반드시 다음 JSON 스키마로 응답하세요:
+{ "title": string, "summary": string, "body": string }
+- title: 1줄 짧은 제목
+- summary: 1-2문장 미리보기
+- body: 200-500자 한국어 본문, Markdown 가능`;
 
 export type OpenAIService = {
   generateDraft: (commit: CommitNormalized) => Promise<LLMDraft>;
@@ -44,33 +67,28 @@ export function createOpenAIService({
       const client = new OpenAI({ apiKey });
 
       try {
-        const completion = await client.chat.completions.create(
-          {
-            model,
-            response_format: { type: "json_object" },
-            messages: [
-              {
-                role: "system",
-                content: SYSTEM_PROMPT,
-              },
-              {
-                role: "user",
-                content: formatCommitForPrompt(commit, diffSizeCapBytes),
-              },
-            ],
-          },
-          { timeout: requestTimeoutMs },
+        const analysis = await extractCommitAnalysis(
+          client,
+          model,
+          requestTimeoutMs,
+          commit,
+          diffSizeCapBytes,
         );
-
-        logTokenUsage(completion.usage);
-
-        const content = completion.choices[0]?.message?.content;
-        if (typeof content !== "string" || content.trim() === "") {
-          throw new ApiError(500, "LLM_INVALID_JSON", "응답 형식 오류");
+        return writeDraft(client, model, requestTimeoutMs, commit, analysis);
+      } catch (error) {
+        if (isStageOneSchemaError(error)) {
+          process.stderr.write(
+            "LLM extract schema failed; falling back to single-shot draft\n",
+          );
+          return generateSingleShotDraft(
+            client,
+            model,
+            requestTimeoutMs,
+            commit,
+            diffSizeCapBytes,
+          );
         }
 
-        return parseDraft(content);
-      } catch (error) {
         if (error instanceof ApiError) {
           throw error;
         }
@@ -79,6 +97,97 @@ export function createOpenAIService({
       }
     },
   };
+}
+
+async function extractCommitAnalysis(
+  client: OpenAI,
+  model: string,
+  requestTimeoutMs: number,
+  commit: CommitNormalized,
+  diffSizeCapBytes: number,
+): Promise<CommitAnalysis> {
+  const completion = await client.chat.completions.create(
+    {
+      model,
+      response_format: { type: "json_object" },
+      messages: [
+        {
+          role: "system",
+          content: EXTRACT_SYSTEM_PROMPT,
+        },
+        {
+          role: "user",
+          content: formatCommitForPrompt(commit, diffSizeCapBytes),
+        },
+      ],
+    },
+    { timeout: requestTimeoutMs },
+  );
+
+  logTokenUsage("extract", completion.usage);
+
+  const content = readCompletionContent(completion);
+  return parseAnalysis(content);
+}
+
+async function writeDraft(
+  client: OpenAI,
+  model: string,
+  requestTimeoutMs: number,
+  commit: CommitNormalized,
+  analysis: CommitAnalysis,
+): Promise<LLMDraft> {
+  const completion = await client.chat.completions.create(
+    {
+      model,
+      response_format: { type: "json_object" },
+      messages: [
+        {
+          role: "system",
+          content: WRITE_SYSTEM_PROMPT,
+        },
+        {
+          role: "user",
+          content: formatDraftRequest(commit, analysis),
+        },
+      ],
+    },
+    { timeout: requestTimeoutMs },
+  );
+
+  logTokenUsage("write", completion.usage);
+
+  return parseDraft(readCompletionContent(completion));
+}
+
+async function generateSingleShotDraft(
+  client: OpenAI,
+  model: string,
+  requestTimeoutMs: number,
+  commit: CommitNormalized,
+  diffSizeCapBytes: number,
+): Promise<LLMDraft> {
+  const completion = await client.chat.completions.create(
+    {
+      model,
+      response_format: { type: "json_object" },
+      messages: [
+        {
+          role: "system",
+          content: SINGLE_SHOT_SYSTEM_PROMPT,
+        },
+        {
+          role: "user",
+          content: formatCommitForPrompt(commit, diffSizeCapBytes),
+        },
+      ],
+    },
+    { timeout: requestTimeoutMs },
+  );
+
+  logTokenUsage("single-shot", completion.usage);
+
+  return parseDraft(readCompletionContent(completion));
 }
 
 function formatCommitForPrompt(
@@ -117,6 +226,21 @@ function formatCommitForPrompt(
   ].join("\n");
 }
 
+function formatDraftRequest(
+  commit: CommitNormalized,
+  analysis: CommitAnalysis,
+): string {
+  return [
+    "Commit metadata:",
+    `Message: ${commit.message}`,
+    `Author: ${commit.author}`,
+    `Date: ${commit.date}`,
+    `Stats: +${commit.stats.additions} -${commit.stats.deletions} (${commit.stats.total} total)`,
+    "Extracted analysis:",
+    JSON.stringify(analysis, null, 2),
+  ].join("\n");
+}
+
 function truncateUtf8(
   value: string,
   maxBytes: number,
@@ -130,6 +254,41 @@ function truncateUtf8(
   return {
     text: buffer.subarray(0, maxBytes).toString("utf8"),
     truncated: true,
+  };
+}
+
+function readCompletionContent(completion: ChatCompletion): string {
+  const content = completion.choices[0]?.message?.content;
+
+  if (typeof content !== "string" || content.trim() === "") {
+    throw new ApiError(500, "LLM_INVALID_JSON", "응답 형식 오류");
+  }
+
+  return content;
+}
+
+function parseAnalysis(content: string): CommitAnalysis {
+  let parsed: unknown;
+
+  try {
+    parsed = JSON.parse(content);
+  } catch {
+    throw new ApiError(500, "LLM_INVALID_JSON", "응답 형식 오류");
+  }
+
+  if (
+    !isRecord(parsed) ||
+    typeof parsed.intent !== "string" ||
+    !isStringArray(parsed.key_changes) ||
+    !isStringArray(parsed.affected_areas)
+  ) {
+    throw new ApiError(500, "LLM_SCHEMA_MISMATCH", "응답 스키마 불일치");
+  }
+
+  return {
+    intent: parsed.intent,
+    key_changes: parsed.key_changes,
+    affected_areas: parsed.affected_areas,
   };
 }
 
@@ -164,7 +323,19 @@ function parseDraft(content: string): LLMDraft {
   };
 }
 
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === "string");
+}
+
+function isStageOneSchemaError(error: unknown): boolean {
+  return (
+    error instanceof ApiError &&
+    (error.code === "LLM_INVALID_JSON" || error.code === "LLM_SCHEMA_MISMATCH")
+  );
+}
+
 function logTokenUsage(
+  stage: string,
   usage:
     | {
         prompt_tokens?: number;
@@ -174,12 +345,16 @@ function logTokenUsage(
     | undefined,
 ): void {
   if (usage === undefined || usage === null) {
-    process.stdout.write("LLM token usage prompt=unknown completion=unknown\n");
+    process.stdout.write(
+      `LLM ${stage} token usage prompt=unknown completion=unknown\n`,
+    );
     return;
   }
 
   process.stdout.write(
-    `LLM token usage prompt=${usage.prompt_tokens ?? "unknown"} completion=${
+    `LLM ${stage} token usage prompt=${
+      usage.prompt_tokens ?? "unknown"
+    } completion=${
       usage.completion_tokens ?? "unknown"
     }\n`,
   );

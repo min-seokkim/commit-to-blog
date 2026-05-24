@@ -35,7 +35,7 @@
 4. 사용자가 저장소 선택 → `useBranches(repo)` → `GET /api/branches?repo=X` → `GET /repos/{owner}/{repo}/branches`.
 5. 사용자가 브랜치 선택 → `useCommits(repo, branch)` → `GET /api/commits?repo=X&branch=Y` → `GET /repos/{owner}/{repo}/commits?sha=Y`.
 6. 사용자가 커밋 선택 → `useCommitDetail(repo, sha)` → `GET /api/commits/:sha?repo=X` → `GET /repos/{owner}/{repo}/commits/{sha}` (메시지 + stats + files + patch 포함).
-7. 사용자가 "Generate" → `useGenerateSummary().generate(commit)` → `POST /api/summary` with `{ commit }` payload.
+7. 사용자가 "Generate" → `useGenerateSummary().generate(commit)` → `POST /api/summary` with normalized `CommitNormalized` payload.
 8. 서버가 커밋 데이터를 LLM 프롬프트로 구조화 (다음 섹션 3 참조).
 9. 서버가 OpenAI SDK로 `chat.completions.create()` 호출, `response_format: { type: "json_object" }` 강제.
 10. LLM 응답을 받아 스키마 검증(`title`/`summary`/`body` 존재 + 타입). 실패 시 에러 반환.
@@ -110,32 +110,50 @@ type CommitNormalized = {
 };
 ```
 
-### 3.2 LLM 프롬프트
+### 3.2 LLM 체인
 
-`CommitNormalized`를 system + user 메시지로 구조화.
+`CommitNormalized`를 바로 글로 쓰지 않고 2단계 체인으로 처리한다.
+
+#### Stage 1 — Extract
+
+커밋 메시지, stats, capped diff를 분석해 기술적 의도를 구조화한다.
 
 ```ts
-const prompt = {
-  model: "gpt-4o-mini",  // 또는 결정된 모델
-  response_format: { type: "json_object" },
-  messages: [
-    {
-      role: "system",
-      content: `당신은 개발자를 위한 기술 블로그 작성자입니다.
-주어진 GitHub 커밋 정보를 분석해 200-500자의 기능 설명형 글을 작성합니다.
-반드시 다음 JSON 스키마로 응답하세요:
-{ "title": string, "summary": string, "body": string }
-- title: 1줄 짧은 제목
-- summary: 1-2문장 미리보기
-- body: 200-500자 본문, Markdown 가능`
-    },
-    {
-      role: "user",
-      content: formatCommitForPrompt(commit)  // 메시지 + stats + (capped) patch
-    }
-  ]
+type CommitAnalysis = {
+  intent: string;
+  key_changes: string[];
+  affected_areas: string[];
 };
 ```
+
+호출 규칙:
+- `response_format: { type: "json_object" }` 강제.
+- system prompt는 분석 전용으로 짧고 엄격하게 유지.
+- 응답은 JSON 파싱 후 `intent` / `key_changes` / `affected_areas` 타입을 수동 검증.
+- Stage 1 토큰 사용량은 `extract` stage 이름으로 서버 로그에 기록.
+
+#### Stage 2 — Write
+
+Stage 1 결과와 원본 커밋 메시지, author, date, stats를 입력으로 받아 블로그 초안을 작성한다.
+
+```ts
+type LLMDraft = {
+  title: string;
+  summary: string;
+  body: string;
+};
+```
+
+호출 규칙:
+- `response_format: { type: "json_object" }` 강제.
+- 한국어 출력.
+- `body`는 Markdown 가능, 200-500자 목표.
+- 응답은 JSON 파싱 후 `title` / `summary` / `body`가 모두 string인지 수동 검증.
+- Stage 2 토큰 사용량은 `write` stage 이름으로 서버 로그에 기록.
+
+Fallback:
+- Stage 1 응답이 JSON 파싱 또는 스키마 검증에 실패하면 기존 single-shot 프롬프트로 즉시 fallback한다.
+- fallback 호출도 `response_format: { type: "json_object" }`를 유지하고 `single-shot` stage 이름으로 토큰 사용량을 기록한다.
 
 `formatCommitForPrompt` 내부 처리:
 - diff 크기 cap 정책 적용 (예: 8KB 또는 200줄 초과 시 truncate).
