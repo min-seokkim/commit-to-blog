@@ -154,8 +154,6 @@ function MyBlogPage() {
     branches.error ??
     commits.error ??
     selectedCommitDetail.error ??
-    summary.error ??
-    savePost.error ??
     notice;
 
   return (

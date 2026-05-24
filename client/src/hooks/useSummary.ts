@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { generateSummary } from "../api/smartBlog";
+import { useToast } from "../components/Toast";
 import type { CommitNormalized, LLMDraft } from "../types/commit";
 
 export type UseGenerateSummaryState = {
@@ -12,6 +13,7 @@ export type UseGenerateSummaryState = {
 };
 
 export function useGenerateSummary(): UseGenerateSummaryState {
+  const { showToast } = useToast();
   const [summary, setSummary] = useState<LLMDraft | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -23,13 +25,15 @@ export function useGenerateSummary(): UseGenerateSummaryState {
     try {
       const nextSummary = await generateSummary(commit);
       setSummary(nextSummary);
+      showToast("요약 초안을 생성했습니다");
       return nextSummary;
     } catch (errorValue) {
-      setError(
+      const message =
         errorValue instanceof Error
           ? errorValue.message
-          : "요약 생성에 실패했습니다",
-      );
+          : "요약 생성에 실패했습니다";
+      setError(message);
+      showToast(message, "error");
       return null;
     } finally {
       setLoading(false);

@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Navigate, RouterProvider, createBrowserRouter } from "react-router";
 
+import { ToastProvider } from "./components/Toast";
 import Layout from "./components/Layout";
 import EditPostPage from "./pages/EditPostPage";
 import MyBlogPage from "./pages/MyBlogPage";
@@ -43,6 +44,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ToastProvider>
+      <RouterProvider router={router} />
+    </ToastProvider>
   </StrictMode>,
 );

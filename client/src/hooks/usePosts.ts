@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { getPost, getPosts, savePost, updatePost } from "../api/smartBlog";
+import { useToast } from "../components/Toast";
 import type { CreatePostInput, Post, UpdatePostInput } from "../types/commit";
 
 import { useFetch, type UseFetchState } from "./useFetch";
@@ -20,6 +21,7 @@ export type SavePostState = {
 };
 
 export function useSavePost(): SavePostState {
+  const { showToast } = useToast();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,11 +30,14 @@ export function useSavePost(): SavePostState {
     setError(null);
 
     try {
-      return await savePost(input);
+      const post = await savePost(input);
+      showToast("저장했습니다");
+      return post;
     } catch (errorValue) {
-      setError(
-        errorValue instanceof Error ? errorValue.message : "저장에 실패했습니다",
-      );
+      const message =
+        errorValue instanceof Error ? errorValue.message : "저장에 실패했습니다";
+      setError(message);
+      showToast(message, "error");
       return null;
     } finally {
       setLoading(false);
@@ -49,6 +54,7 @@ export type UpdatePostState = {
 };
 
 export function useUpdatePost(): UpdatePostState {
+  const { showToast } = useToast();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -60,13 +66,16 @@ export function useUpdatePost(): UpdatePostState {
     setError(null);
 
     try {
-      return await updatePost(id, input);
+      const post = await updatePost(id, input);
+      showToast("수정했습니다");
+      return post;
     } catch (errorValue) {
-      setError(
+      const message =
         errorValue instanceof Error
           ? errorValue.message
-          : "수정에 실패했습니다",
-      );
+          : "수정에 실패했습니다";
+      setError(message);
+      showToast(message, "error");
       return null;
     } finally {
       setLoading(false);

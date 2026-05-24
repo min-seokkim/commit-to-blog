@@ -56,9 +56,9 @@ function EditPostPage() {
         <h1 className={styles["edit-post-page__title"]}>Edit post</h1>
       </div>
 
-      {post.error !== null || updatePost.error !== null ? (
+      {post.error !== null ? (
         <p className={styles["edit-post-page__error"]} role="alert">
-          {post.error ?? updatePost.error}
+          {post.error}
         </p>
       ) : null}
 

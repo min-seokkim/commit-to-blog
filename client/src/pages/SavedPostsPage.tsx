@@ -32,9 +32,9 @@ function SavedPostsPage() {
         </WaxSealButton>
       </div>
 
-      {posts.error !== null || updatePost.error !== null ? (
+      {posts.error !== null ? (
         <p className={styles["saved-posts-page__error"]} role="alert">
-          {posts.error ?? updatePost.error}
+          {posts.error}
         </p>
       ) : null}
 

@@ -134,6 +134,7 @@
   --size-preview-min-block: 180px;
   --size-commit-list-max-block: 520px;
   --size-input-min-block: 38px;
+  --size-toast-width: 320px;
   --size-gear-header: 18px;
   --size-gear-footer: 10px;
   --size-card-pin-offset: -8px;
@@ -146,4 +147,6 @@
   --rotate-d: 2deg;
   --rotate-gear: 16deg;
   --rotate-hover: 0.3deg;
+  --z-toast: 20;
+  --duration-toast-fade: 180ms;
 }

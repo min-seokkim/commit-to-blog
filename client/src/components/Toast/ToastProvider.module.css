@@ -1,0 +1,41 @@
+.toast-region {
+  position: fixed;
+  inset-inline-end: var(--space-6);
+  inset-block-start: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+  z-index: var(--z-toast);
+}
+
+.toast {
+  max-inline-size: var(--size-toast-width);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-double-ink-thin);
+  background: var(--surface-card-background);
+  box-shadow: var(--shadow-memo);
+  color: var(--color-text-primary);
+  font-family: var(--font-cursive);
+  font-size: var(--text-hand-label-size);
+  line-height: var(--text-hand-label-line);
+  animation: toast-fade var(--duration-toast-fade) ease both;
+}
+
+.toast--error {
+  color: var(--color-accent-wax);
+}
+
+.toast--success {
+  color: var(--color-text-secondary);
+}
+
+@keyframes toast-fade {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-2));
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
