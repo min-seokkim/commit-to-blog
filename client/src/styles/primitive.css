@@ -64,6 +64,11 @@
   --space-8: 32px;
   --space-9: 36px;
   --space-10: 40px;
+  --space-card-x: 22px;
+  --space-card-bottom: 18px;
+  --space-button-x: 22px;
+  --space-button-y: 10px;
+  --space-button-compact: 7px;
 
   --radius-none: 0;
   --radius-sm: 2px;
@@ -122,8 +127,16 @@
   --size-sidebar-width: 240px;
   --size-content-max: 1180px;
   --size-card-min: 320px;
+  --size-gear-header: 18px;
+  --size-gear-footer: 10px;
+  --size-card-pin-offset: -8px;
+  --size-pin-left-a: 18px;
+  --size-pin-left-b: 46%;
+  --size-pin-right-a: 20px;
   --rotate-a: -1.5deg;
   --rotate-b: 1.2deg;
   --rotate-c: -0.7deg;
   --rotate-d: 2deg;
+  --rotate-gear: 16deg;
+  --rotate-hover: 0.3deg;
 }

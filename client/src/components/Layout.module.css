@@ -1,0 +1,11 @@
+.layout {
+  min-block-size: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.layout__main {
+  inline-size: min(100%, var(--size-content-max));
+  margin-inline: auto;
+  padding: var(--space-8) var(--space-6);
+}

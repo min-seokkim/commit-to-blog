@@ -1,0 +1,30 @@
+.wax-seal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-button-y) var(--space-button-x);
+  border: 0.5px solid var(--wine-300);
+  border-radius: var(--radius-sm);
+  background: var(--fill-wax);
+  color: var(--color-text-on-wax);
+  box-shadow: var(--shadow-wax);
+  font-family: var(--font-mono);
+  font-size: var(--text-button-size);
+  font-variant: small-caps;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: var(--text-button-line);
+}
+
+.wax-seal-button:disabled {
+  opacity: 0.6;
+}
+
+.wax-seal-button--compact {
+  padding: var(--space-button-compact) var(--space-4);
+}
+
+.wax-seal-button__icon {
+  line-height: var(--text-button-line);
+}

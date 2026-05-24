@@ -1,0 +1,45 @@
+import type { ReactNode } from "react";
+
+import BrassPin from "./BrassPin";
+import styles from "./PinnedSurface.module.css";
+
+export type PinnedSurfaceVariant = "card" | "memo" | "letter" | "large";
+export type PinnedSurfaceRotate = "a" | "b" | "c" | "d";
+export type PinnedSurfacePin = "left" | "center" | "right";
+
+type PinnedSurfaceProps = {
+  children: ReactNode;
+  className?: string;
+  variant?: PinnedSurfaceVariant;
+  rotate?: PinnedSurfaceRotate;
+  pin?: PinnedSurfacePin;
+};
+
+function PinnedSurface({
+  children,
+  className,
+  variant = "card",
+  rotate = "a",
+  pin = "left",
+}: PinnedSurfaceProps) {
+  const classes = [
+    styles["pinned-surface"],
+    styles[`pinned-surface--${variant}`],
+    styles[`pinned-surface--rotate-${rotate}`],
+    styles[`pinned-surface--pin-${pin}`],
+    className ?? "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <article className={classes}>
+      <span className={styles["pinned-surface__pin"]}>
+        <BrassPin size={variant === "memo" ? "small" : "medium"} />
+      </span>
+      {children}
+    </article>
+  );
+}
+
+export default PinnedSurface;

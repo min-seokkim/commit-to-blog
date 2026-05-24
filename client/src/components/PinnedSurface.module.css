@@ -1,0 +1,69 @@
+.pinned-surface {
+  position: relative;
+  border: var(--border-hairline);
+  background: var(--surface-card-background);
+  box-shadow: var(--shadow-card), var(--shadow-card-inset);
+  color: var(--color-text-primary);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.pinned-surface:hover {
+  transform: rotate(var(--rotate-hover));
+}
+
+.pinned-surface--card {
+  padding: var(--space-card-x) var(--space-card-x) var(--space-card-bottom);
+}
+
+.pinned-surface--memo {
+  padding: var(--space-5) var(--space-4) var(--space-4);
+  background: var(--surface-memo-background);
+  box-shadow: var(--shadow-memo);
+}
+
+.pinned-surface--letter {
+  padding: var(--space-6);
+  background: var(--surface-letter-background);
+  box-shadow: var(--shadow-paper-large), var(--shadow-paper-inset);
+}
+
+.pinned-surface--large {
+  padding: var(--space-8);
+  background: var(--surface-card-background);
+  box-shadow: var(--shadow-paper-large), var(--shadow-paper-inset);
+}
+
+.pinned-surface--rotate-a {
+  transform: rotate(var(--rotate-a));
+}
+
+.pinned-surface--rotate-b {
+  transform: rotate(var(--rotate-b));
+}
+
+.pinned-surface--rotate-c {
+  transform: rotate(var(--rotate-c));
+}
+
+.pinned-surface--rotate-d {
+  transform: rotate(var(--rotate-d));
+}
+
+.pinned-surface--pin-left .pinned-surface__pin {
+  inset-inline-start: var(--size-pin-left-a);
+}
+
+.pinned-surface--pin-center .pinned-surface__pin {
+  inset-inline-start: var(--size-pin-left-b);
+}
+
+.pinned-surface--pin-right .pinned-surface__pin {
+  inset-inline-end: var(--size-pin-right-a);
+}
+
+.pinned-surface__pin {
+  position: absolute;
+  inset-block-start: var(--size-card-pin-offset);
+}

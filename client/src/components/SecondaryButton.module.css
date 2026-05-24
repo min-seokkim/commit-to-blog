@@ -1,0 +1,20 @@
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-button-y) var(--space-4);
+  border: var(--border-double-ink-thin);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--text-button-size);
+  font-variant: small-caps;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: var(--text-button-line);
+}
+
+.secondary-button:disabled {
+  opacity: 0.55;
+}

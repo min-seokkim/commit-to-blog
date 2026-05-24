@@ -1,0 +1,7 @@
+.fleuron {
+  color: var(--color-accent-brass);
+  font-family: var(--font-serif);
+  font-size: var(--text-h2-size);
+  letter-spacing: 1em;
+  text-align: center;
+}
